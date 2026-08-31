@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nanobot | Stainless Steel Bottle Catalog & Quotation Portal</title>
+  
+  <meta name="description" content="Nanobot Official Digital Catalog. Double Layer Vacuum Insulated and Single Layer Stainless Steel Fridge Bottles. MRP, DP Pricing, custom laser branding, and WhatsApp quotation builder.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- jsPDF for Instant PDF Quotation Generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-[#0b0f19] text-slate-100 min-h-screen flex flex-col selection:bg-sky-500 selection:text-white">
+
+  <!-- Top Announcement Bar -->
+  <div class="bg-gradient-to-r from-sky-950 via-slate-900 to-sky-950 border-b border-sky-900/40 text-xs py-2 px-4 text-center flex items-center justify-center gap-3">
+    <span class="inline-flex items-center gap-1.5 text-sky-300 font-semibold">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+      🏭 Direct Factory Pricing & DP Dealer Rates
+    </span>
+    <span class="text-slate-500 hidden md:inline">•</span>
+    <span class="text-slate-300 hidden md:inline">Double Layer Vacuum (24h) & Single Layer Fridge Bottles</span>
+    <span class="text-slate-500 hidden sm:inline">•</span>
+    <span class="text-slate-300 hidden sm:inline">100% Virgin SUS 304 Food Grade</span>
+    <span class="text-slate-500">•</span>
+    <a href="#customizer-section" class="text-sky-400 hover:text-sky-300 underline font-medium">Laser Engraving Studio</a>
+  </div>
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-40 glass-panel border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-sky-600 via-blue-500 to-cyan-400 p-0.5 shadow-lg shadow-sky-500/20 group-hover:scale-105 transition">
+          <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
+            <i data-lucide="flask-conical" class="w-6 h-6 text-sky-400"></i>
+          </div>
+        </div>
+        <div>
+          <span class="text-2xl font-extrabold tracking-tight font-display metallic-gradient-text uppercase">nanobot</span>
+          <div class="text-[10px] uppercase font-bold tracking-widest text-sky-400 -mt-1 flex items-center gap-1">
+            <span>Steel Bottles</span>
+            <span class="w-1 h-1 rounded-full bg-emerald-400"></span>
+            <span class="text-slate-400">Mfg.</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="#catalog" class="hover:text-sky-400 transition">Product Catalog</a>
+        <a href="#customizer-section" class="hover:text-sky-400 transition flex items-center gap-1.5">
+          <i data-lucide="sparkles" class="w-4 h-4 text-sky-400"></i> Laser Studio
+        </a>
+        <a href="#manufacturing" class="hover:text-sky-400 transition">Manufacturing Tech</a>
+        <a href="#wholesale" class="hover:text-sky-400 transition">Wholesale / DP Tiers</a>
+        <a href="#faq" class="hover:text-sky-400 transition">FAQ</a>
+      </nav>
+
+      <!-- Header Controls & Cart -->
+      <div class="flex items-center gap-3">
+        
+        <!-- Currency Toggle -->
+        <button id="currency-toggle" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-sky-400 hover:bg-slate-800 transition" title="Switch Currency">
+          ₹ INR
+        </button>
+
+        <!-- Admin Catalog Manager & Excel Importer Button -->
+        <button onclick="openAdminModal()" class="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition text-xs font-semibold flex items-center gap-1.5" title="Manage Catalog & Import Excel">
+          <i data-lucide="table" class="w-3.5 h-3.5 text-sky-400"></i>
+          <span class="hidden sm:inline">Manage Catalog</span>
+        </button>
+
+        <!-- Quotation Cart Button -->
+        <button onclick="openCartDrawer()" class="relative py-2.5 px-4 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-sm font-semibold flex items-center gap-2 shadow-lg shadow-sky-950/60 transition active:scale-95">
+          <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">Quotation</span>
+          <span id="cart-badge-count" class="w-5 h-5 rounded-full bg-red-500 text-white text-[11px] font-bold flex items-center justify-center" style="display: none;">0</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative pt-12 pb-20 overflow-hidden border-b border-slate-800/80">
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-sky-500/15 blur-[120px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Hero Copy -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/80 text-xs font-medium text-sky-300">
+            <i data-lucide="award" class="w-4 h-4 text-sky-400"></i>
+            <span>Manufacturer of Double Layer & Single Layer Steel Bottles</span>
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15]">
+            Precision Engineered <span class="metallic-cyan-gradient">Vacuum & Fridge Bottles</span>.
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+            Browse our complete manufacturing lineup with transparent <strong>MRP</strong> and <strong>Dealer Price (DP)</strong> rates. Select your models, customize logo engraving, and generate instant WhatsApp orders or downloadable PDF proforma quotes.
+          </p>
+
+          <!-- CTA Action Row -->
+          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+            <a href="#catalog" class="py-3.5 px-7 rounded-xl bg-gradient-to-r from-sky-500 via-blue-600 to-sky-600 hover:from-sky-400 hover:to-blue-500 text-white font-bold text-sm flex items-center gap-2 shadow-xl shadow-sky-950 transition transform hover:-translate-y-0.5">
+              <span>Explore Product Catalog</span>
+              <i data-lucide="arrow-down" class="w-4 h-4"></i>
+            </a>
+
+            <a href="#customizer-section" class="py-3.5 px-6 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-sm flex items-center gap-2 transition">
+              <i data-lucide="sparkles" class="w-4 h-4 text-sky-400"></i>
+              <span>Test Laser Engraving</span>
+            </a>
+
+            <button onclick="downloadPdfQuotation()" class="py-3.5 px-4 rounded-xl bg-slate-900/50 hover:bg-slate-800/80 text-slate-400 hover:text-slate-200 border border-slate-800 text-sm flex items-center gap-1.5 transition" title="Export Current Catalog Quote">
+              <i data-lucide="file-text" class="w-4 h-4"></i>
+              <span>Download PDF Quote</span>
+            </button>
+          </div>
+
+          <!-- Feature Bullets Bar -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-800/60">
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="flame" class="w-5 h-5 text-amber-400 shrink-0"></i>
+              <div class="text-left">
+                <div class="text-xs font-bold text-white">Double Layer</div>
+                <div class="text-[11px] text-slate-400">24h Cold / 18h Hot</div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="snowflake" class="w-5 h-5 text-sky-400 shrink-0"></i>
+              <div class="text-left">
+                <div class="text-xs font-bold text-white">Single Layer</div>
+                <div class="text-[11px] text-slate-400">Rapid Fridge Chilling</div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="percent" class="w-5 h-5 text-emerald-400 shrink-0"></i>
+              <div class="text-left">
+                <div class="text-xs font-bold text-white">MRP & DP Rates</div>
+                <div class="text-[11px] text-slate-400">Wholesale Margins</div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="truck" class="w-5 h-5 text-sky-400 shrink-0"></i>
+              <div class="text-left">
+                <div class="text-xs font-bold text-white">Pan-India Dispatch</div>
+                <div class="text-[11px] text-slate-400">Factory Direct Logistics</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Hero Visual Showcase -->
+        <div class="lg:col-span-5 flex items-center justify-center relative">
+          <div class="w-full max-w-md p-6 rounded-3xl glass-panel border border-slate-700/60 relative steel-sheen">
+            
+            <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-800">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+              </div>
+              <span class="text-xs font-mono text-sky-400 uppercase tracking-wider font-semibold">Flagship Showcase</span>
+            </div>
+
+            <!-- Double Layer vs Single Layer Showcase -->
+            <div class="grid grid-cols-2 gap-4 py-4 items-center">
+              
+              <div class="text-center bg-slate-900/60 rounded-2xl p-4 border border-slate-800 hover:border-amber-500/30 transition">
+                <div class="w-28 h-44 mx-auto mb-2 bottle-mockup-wrapper flex items-center justify-center">
+                  <svg viewBox="0 0 200 420" class="w-full h-full drop-shadow-xl" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="heroVacGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#1e3a8a"/>
+                        <stop offset="35%" stop-color="#3b82f6"/>
+                        <stop offset="65%" stop-color="#ffffff" stop-opacity="0.4"/>
+                        <stop offset="90%" stop-color="#1e3a8a"/>
+                        <stop offset="100%" stop-color="#0f172a"/>
+                      </linearGradient>
+                    </defs>
+                    <rect x="74" y="45" width="52" height="36" rx="6" fill="#94a3b8" />
+                    <rect x="70" y="78" width="60" height="8" rx="2" fill="#0284c7" />
+                    <path d="M 68 86 L 132 86 Q 138 86 138 94 L 138 350 Q 138 365 125 365 L 75 365 Q 62 365 62 350 L 62 94 Q 62 86 68 86 Z" fill="url(#heroVacGrad)" />
+                    <text x="100" y="220" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="14" fill="#ffffff" letter-spacing="2">NANOBOT</text>
+                    <text x="100" y="238" text-anchor="middle" font-size="8" fill="#e2e8f0" letter-spacing="1">DOUBLE LAYER</text>
+                  </svg>
+                </div>
+                <div class="text-xs font-bold text-white">Double Layer</div>
+                <div class="text-[10px] text-amber-400 font-semibold">Vacuum (24h Cold / 18h Hot)</div>
+              </div>
+
+              <div class="text-center bg-slate-900/60 rounded-2xl p-4 border border-slate-800 hover:border-sky-500/30 transition">
+                <div class="w-28 h-44 mx-auto mb-2 bottle-mockup-wrapper flex items-center justify-center">
+                  <svg viewBox="0 0 200 420" class="w-full h-full drop-shadow-xl" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="heroFridgeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#64748b"/>
+                        <stop offset="35%" stop-color="#cbd5e1"/>
+                        <stop offset="60%" stop-color="#ffffff"/>
+                        <stop offset="85%" stop-color="#94a3b8"/>
+                        <stop offset="100%" stop-color="#334155"/>
+                      </linearGradient>
+                    </defs>
+                    <rect x="78" y="42" width="44" height="26" rx="4" fill="#cbd5e1" />
+                    <rect x="74" y="66" width="52" height="8" rx="2" fill="#475569" />
+                    <path d="M 74 74 Q 62 95 62 110 L 62 355 Q 62 365 72 365 L 128 365 Q 138 365 138 355 L 138 110 Q 138 95 126 74 Z" fill="url(#heroFridgeGrad)" />
+                    <text x="100" y="220" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="14" fill="#0f172a" letter-spacing="2">NANOBOT</text>
+                    <text x="100" y="238" text-anchor="middle" font-size="8" fill="#334155" letter-spacing="1">SINGLE LAYER</text>
+                  </svg>
+                </div>
+                <div class="text-xs font-bold text-white">Single Layer</div>
+                <div class="text-[10px] text-sky-400 font-semibold">Fridge Door Chilling</div>
+              </div>
+
+            </div>
+
+            <div class="mt-2 p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-center text-xs text-slate-400 flex items-center justify-center gap-2">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+              <span>100% Virgin Food-Grade SUS 304 Stainless Steel</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Catalog Section -->
+  <section id="catalog" class="py-16 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header & Mode Toggle -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 text-xs font-bold text-sky-400 uppercase tracking-widest mb-1 font-mono">
+            <span>Product Showcase</span>
+          </div>
+          <h2 class="text-3xl font-extrabold text-white font-display">Double Layer & Single Layer Models</h2>
+          <p class="text-sm text-slate-400 mt-1">Select your desired bottle models to build an order or quotation.</p>
+        </div>
+
+        <!-- Pricing Mode Switcher (MRP vs DP Rate) -->
+        <div class="flex items-center bg-slate-900/90 p-1.5 rounded-xl border border-slate-800">
+          <button id="btn-mode-dp" class="px-4 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-600 text-white shadow-sm flex items-center gap-1.5">
+            <span>DP (Dealer Price)</span>
+            <span class="px-1.5 py-0.2 bg-emerald-950 text-emerald-300 text-[10px] rounded border border-emerald-800 font-mono">Wholesale</span>
+          </button>
+          <button id="btn-mode-mrp" class="px-4 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">
+            MRP (Retail)
+          </button>
+        </div>
+      </div>
+
+      <!-- Layer / Category Filter Tabs Bar -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-6 scrollbar-none" id="category-tabs">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Search and Secondary Filters Bar -->
+      <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 mb-8 bg-slate-900/60 p-4 rounded-2xl border border-slate-800">
+        
+        <!-- Search Input -->
+        <div class="sm:col-span-6 relative">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+          <input type="text" id="search-input" placeholder="Search by model name or SKU..." class="w-full bg-slate-950/80 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-sky-500 transition">
+        </div>
+
+        <!-- Capacity Size Filter -->
+        <div class="sm:col-span-3">
+          <select id="capacity-select" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+            <option value="all">All Capacities (ml)</option>
+            <option value="400">400 - 500 ml (Compact / Office)</option>
+            <option value="650">650 - 750 ml (Standard Gym)</option>
+            <option value="900">900 - 1000 ml (1 Litre Full Day)</option>
+            <option value="1200">1200 - 1500 ml (Large Volume)</option>
+          </select>
+        </div>
+
+        <!-- Counter & Quick Reset -->
+        <div class="sm:col-span-3 flex items-center justify-between sm:justify-end gap-3">
+          <span class="text-xs text-slate-400 font-mono" id="products-count">Loading models...</span>
+          <button onclick="resetFilters()" class="text-xs text-sky-400 hover:text-sky-300 underline font-medium">Reset</button>
+        </div>
+
+      </div>
+
+      <!-- Dynamic Products Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="products-grid">
+        <!-- Rendered dynamically -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Live Laser Engraving & Customizer Studio -->
+  <section id="customizer-section" class="py-20 relative bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 border-y border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-950/80 border border-sky-800 text-xs font-semibold text-sky-400 mb-2 font-mono">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+          <span>Interactive Visualizer</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-display">Live Bottle Customizer & Laser Studio</h2>
+        <p class="text-sm sm:text-base text-slate-300 mt-2">
+          Test custom colors, type your brand name, or upload your logo to preview live laser engraving on nanobot stainless steel bottles.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Left: Canvas Bottle Preview -->
+        <div class="lg:col-span-6 bg-slate-950 rounded-3xl p-8 border border-slate-800 flex flex-col items-center justify-center relative shadow-2xl min-h-[460px]" id="customizer-canvas-container">
+          
+          <div class="absolute top-4 left-4 flex items-center gap-2">
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-[11px] font-mono text-sky-400 border border-slate-800">
+              Live Mockup
+            </span>
+          </div>
+
+          <div class="w-48 h-80 bottle-mockup-wrapper relative" id="customizer-canvas">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <div class="mt-4 text-center">
+            <span class="text-xs text-slate-400">High-Precision Fiber Laser Mark Simulation</span>
+          </div>
+
+        </div>
+
+        <!-- Right: Control Panel -->
+        <div class="lg:col-span-6 space-y-6 bg-slate-900/70 p-6 sm:p-8 rounded-3xl border border-slate-800">
+          
+          <!-- Choose Model -->
+          <div>
+            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">1. Choose Bottle Model:</label>
+            <select id="customizer-model-select" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-sky-500 font-semibold">
+              <!-- Rendered dynamically -->
+            </select>
+          </div>
+
+          <!-- Select Color Finish -->
+          <div>
+            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">2. Select Shell Color Finish:</label>
+            <div class="flex items-center gap-3 flex-wrap" id="customizer-color-swatches">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Laser Text Input -->
+          <div>
+            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">3. Laser Engraving Text / Name:</label>
+            <div class="relative">
+              <input type="text" id="customizer-text-input" value="YOUR BRAND HERE" maxlength="24" oninput="handleCustomizerTextChange(this.value)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-sky-500 font-mono tracking-widest uppercase">
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-500">Max 24 chars</span>
+            </div>
+          </div>
+
+          <!-- Logo Upload -->
+          <div>
+            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">4. Or Upload Brand Vector / Logo (PNG/SVG):</label>
+            <div class="flex items-center gap-3">
+              <input type="file" id="logo-upload-input" accept="image/*" onchange="handleLogoUpload(event)" class="hidden">
+              <button onclick="document.getElementById('logo-upload-input').click()" class="px-4 py-2.5 bg-slate-950 border border-slate-800 hover:border-slate-700 rounded-xl text-xs font-semibold text-sky-400 flex items-center gap-2">
+                <i data-lucide="upload" class="w-4 h-4"></i> Upload Logo
+              </button>
+              <button onclick="removeCustomLogo()" class="text-xs text-red-400 hover:underline">Remove Logo</button>
+            </div>
+          </div>
+
+          <!-- Branding Method Options -->
+          <div>
+            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">5. Branding Method & Rates:</label>
+            <div class="space-y-2" id="branding-options-container">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Action Button -->
+          <div class="pt-2">
+            <button onclick="addCustomizerToCart()" class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-sky-500 via-blue-600 to-sky-600 hover:from-sky-400 hover:to-blue-500 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-xl shadow-sky-950 transition transform active:scale-95">
+              <i data-lucide="plus-circle" class="w-5 h-5"></i>
+              <span>Add Custom Engraved Bottle to Quote</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Manufacturing & Factory Tech Highlights -->
+  <section id="manufacturing" class="py-16 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-xs font-semibold text-sky-400 mb-2 font-mono">
+          <i data-lucide="factory" class="w-3.5 h-3.5"></i>
+          <span>Factory Infrastructure</span>
+        </div>
+        <h2 class="text-3xl font-extrabold text-white font-display">Precision Stainless Steel Engineering</h2>
+        <p class="text-sm text-slate-300 mt-2">
+          Every nanobot bottle is manufactured using virgin food-grade SUS 304 alloy, precision deep drawing, high-vacuum brazing furnaces, and automated finishing lines.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <div class="glass-card rounded-2xl p-6 border border-slate-800">
+          <div class="w-12 h-12 rounded-xl bg-sky-950 text-sky-400 flex items-center justify-center mb-4 border border-sky-800/60">
+            <i data-lucide="layers" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2 font-display">Double Layer Vacuum Insulation</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Double wall construction with internal copper plating reflects heat radiation, delivering 24 hours ice-cold retention and 18 hours hot temperature stability.
+          </p>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 border border-slate-800">
+          <div class="w-12 h-12 rounded-xl bg-sky-950 text-sky-400 flex items-center justify-center mb-4 border border-sky-800/60">
+            <i data-lucide="snowflake" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2 font-display">Single Layer Fast Fridge Chilling</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            High-conductivity pure stainless steel single layer body that quickly absorbs the refrigerator coldness to chill your drinking water fast.
+          </p>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 border border-slate-800">
+          <div class="w-12 h-12 rounded-xl bg-sky-950 text-sky-400 flex items-center justify-center mb-4 border border-sky-800/60">
+            <i data-lucide="shield-check" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2 font-display">100% Virgin SUS 304 Food-Grade Steel</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Electro-polished interiors prevent metallic aftertaste, bacterial growth, and corrosion. Completely free from BPA, phthalates, lead, and microplastics.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Wholesale & Corporate Gifting Section -->
+  <section id="wholesale" class="py-16 relative bg-slate-950 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="glass-panel rounded-3xl p-8 sm:p-12 border border-slate-800 relative overflow-hidden">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <div class="lg:col-span-7 space-y-4">
+            <span class="text-xs font-mono text-sky-400 uppercase font-bold tracking-wider">Wholesale & OEM Capabilities</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-display">
+              Bulk Supply, Corporate Gifting & Dealer Distribution
+            </h2>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              We offer attractive Dealer Price (DP) margins and volume discounts for corporate gifting agencies, retail distributors, gyms, and private label brands.
+            </p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
+              <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                <div class="text-xs text-slate-400">10 – 49 Units</div>
+                <div class="text-lg font-bold text-emerald-400 font-display">DP Rate</div>
+                <div class="text-[10px] text-sky-400">Dealer Base Price</div>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                <div class="text-xs text-slate-400">50 – 199 Units</div>
+                <div class="text-lg font-bold text-white font-display">32% OFF</div>
+                <div class="text-[10px] text-emerald-400">Corporate Wholesale</div>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 col-span-2 sm:col-span-1">
+                <div class="text-xs text-slate-400">500+ Units</div>
+                <div class="text-lg font-bold text-sky-400 font-display">48% OFF</div>
+                <div class="text-[10px] text-amber-400">Factory Direct OEM</div>
+              </div>
+            </div>
+
+            <div class="pt-4 flex flex-wrap gap-4">
+              <button onclick="openCartDrawer()" class="px-6 py-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-bold text-sm flex items-center gap-2 transition">
+                <i data-lucide="calculator" class="w-4 h-4"></i>
+                <span>Build Order Quotation</span>
+              </button>
+              <a href="https://wa.me/919876543210?text=Hi%20Nanobot%2C%20I%20want%20to%20inquire%20about%20DP%20dealer%20pricing%20and%20bulk%20bottle%20orders" target="_blank" class="px-6 py-3 rounded-xl bg-slate-900 text-slate-200 border border-slate-700 hover:bg-slate-800 font-semibold text-sm flex items-center gap-2 transition">
+                <i data-lucide="message-circle" class="w-4 h-4 text-emerald-400"></i>
+                <span>Direct WhatsApp Chat</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 bg-slate-900/90 rounded-2xl p-6 border border-slate-800 space-y-3 text-xs">
+            <h4 class="font-bold text-white text-sm mb-2">OEM / ODM Custom Options:</h4>
+            <div class="flex items-center gap-2 text-slate-300">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span>Custom Color Coating & Pantone Matching</span>
+            </div>
+            <div class="flex items-center gap-2 text-slate-300">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span>Permanent Fiber Laser Engraving</span>
+            </div>
+            <div class="flex items-center gap-2 text-slate-300">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span>Custom Printed Rigid Gift Box Packaging</span>
+            </div>
+            <div class="flex items-center gap-2 text-slate-300">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span>GST Tax Invoicing & Pan-India Dispatch</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="py-16 relative">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-10">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-display">Frequently Asked Questions</h2>
+      </div>
+
+      <div class="space-y-4 text-xs sm:text-sm">
+        
+        <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
+          <h4 class="font-bold text-white mb-1.5 flex items-center gap-2">
+            <i data-lucide="help-circle" class="w-4 h-4 text-sky-400 shrink-0"></i>
+            What is the difference between Double Layer and Single Layer bottles?
+          </h4>
+          <p class="text-slate-400 pl-6 leading-relaxed">
+            <strong>Double Layer (Vacuum)</strong> bottles have two stainless steel walls with a vacuum insulation layer that maintains liquid hot for 18h or ice cold for 24h with zero sweat. <strong>Single Layer</strong> bottles have a single stainless steel wall designed for fast chilling inside refrigerator doors.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
+          <h4 class="font-bold text-white mb-1.5 flex items-center gap-2">
+            <i data-lucide="help-circle" class="w-4 h-4 text-sky-400 shrink-0"></i>
+            What is the difference between MRP and DP Price?
+          </h4>
+          <p class="text-slate-400 pl-6 leading-relaxed">
+            <strong>MRP (Maximum Retail Price)</strong> is the standard consumer retail price. <strong>DP (Dealer Price)</strong> is the discounted factory rate for authorized dealers, retailers, corporate gifting, and bulk buyers.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Sticky Comparison Floating Bar -->
+  <div id="comparison-bar" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-slate-900/95 border border-sky-500/50 shadow-2xl rounded-2xl px-6 py-3.5 hidden backdrop-blur-xl flex items-center gap-4">
+    <div class="flex items-center gap-2">
+      <i data-lucide="layers" class="w-5 h-5 text-sky-400"></i>
+      <span id="compare-count" class="text-sm font-bold text-white">0 Models Selected</span>
+    </div>
+    <button onclick="openComparisonModal()" class="px-4 py-1.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold transition">
+      View Comparison Table
+    </button>
+    <button onclick="AppState.comparisonIds = []; updateComparisonBar(); renderProductGrid();" class="text-slate-400 hover:text-white text-xs">
+      Clear
+    </button>
+  </div>
+
+  <!-- Cart / Quotation Slide-Over Drawer -->
+  <div id="cart-drawer" class="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-slate-950 border-l border-slate-800 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+    
+    <!-- Drawer Header -->
+    <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-900/80">
+      <div class="flex items-center gap-2">
+        <i data-lucide="file-spreadsheet" class="w-5 h-5 text-sky-400"></i>
+        <h3 class="font-bold text-white text-lg font-display">Quotation & Order Builder</h3>
+      </div>
+      <button onclick="closeCartDrawer()" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <!-- Drawer Body -->
+    <div class="flex-1 overflow-y-auto p-5 space-y-4">
+      
+      <!-- Tier Info Banner -->
+      <div id="cart-tier-info"></div>
+
+      <!-- Selected Items Container -->
+      <div id="cart-items-container" class="space-y-3">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Customer Details Form -->
+      <div class="pt-4 border-t border-slate-800/80 space-y-3">
+        <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Your Details (For Quotation & Delivery):</div>
+        
+        <input type="text" id="client-name" placeholder="Contact Person / Full Name *" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-sky-500">
+        
+        <div class="grid grid-cols-2 gap-2">
+          <input type="text" id="client-company" placeholder="Company / Brand Name" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-sky-500">
+          <input type="text" id="client-city" placeholder="City / Pincode *" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-sky-500">
+        </div>
+
+        <textarea id="client-notes" rows="2" placeholder="Special requirements (e.g., laser logo placement, urgent delivery date)..." class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-sky-500 resize-none"></textarea>
+      </div>
+
+    </div>
+
+    <!-- Drawer Footer Actions -->
+    <div class="p-5 border-t border-slate-800 bg-slate-900/90 space-y-3">
+      
+      <!-- Price Summary -->
+      <div class="space-y-1.5 text-xs">
+        <div class="flex justify-between text-slate-400">
+          <span>Subtotal</span>
+          <span id="cart-subtotal" class="font-mono text-slate-200">₹0</span>
+        </div>
+        <div class="flex justify-between text-emerald-400 font-semibold">
+          <span>Volume Tier Discount</span>
+          <span id="cart-discount" class="font-mono">-₹0</span>
+        </div>
+        <div class="flex justify-between text-base font-bold text-white pt-2 border-t border-slate-800">
+          <span>Estimated Total</span>
+          <span id="cart-total" class="font-mono text-sky-400 text-lg">₹0</span>
+        </div>
+        <div class="text-[10px] text-slate-500 text-right">*Taxes & freight calculated upon order confirmation</div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="space-y-2 pt-2">
+        <button onclick="generateWhatsAppOrder()" class="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-950 transition">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>Send Order via WhatsApp</span>
+        </button>
+
+        <div class="grid grid-cols-2 gap-2">
+          <button onclick="downloadPdfQuotation()" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 transition">
+            <i data-lucide="file-down" class="w-3.5 h-3.5 text-sky-400"></i>
+            <span>Download PDF</span>
+          </button>
+          <button onclick="copyShareableLink()" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 transition">
+            <i data-lucide="share-2" class="w-3.5 h-3.5 text-sky-400"></i>
+            <span>Share Link</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Product Details Modal -->
+  <div id="product-modal" class="fixed inset-0 z-50 modal-backdrop flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-950 border border-slate-800 rounded-3xl max-w-3xl w-full p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto shadow-2xl">
+      <button onclick="closeModal('product-modal')" class="absolute top-4 right-4 p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <div id="product-modal-body">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Comparison Modal -->
+  <div id="compare-modal" class="fixed inset-0 z-50 modal-backdrop flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-950 border border-slate-800 rounded-3xl max-w-5xl w-full p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-800">
+        <div class="flex items-center gap-2">
+          <i data-lucide="layers" class="w-5 h-5 text-sky-400"></i>
+          <h3 class="text-xl font-bold text-white font-display">Side-by-Side Model Comparison</h3>
+        </div>
+        <button onclick="closeModal('compare-modal')" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div id="compare-table-container">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin / Catalog Manager & Bulk Importer Modal -->
+  <div id="admin-modal" class="fixed inset-0 z-50 modal-backdrop flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-950 border border-slate-800 rounded-3xl max-w-4xl w-full p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto shadow-2xl">
+      
+      <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-800">
+        <div>
+          <h3 class="text-xl font-bold text-white font-display">Nanobot Catalog Management</h3>
+          <p class="text-xs text-slate-400">Update model prices, stock, image paths, or paste products directly from Excel.</p>
+        </div>
+        <button onclick="closeModal('admin-modal')" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Bulk Excel Paste Importer Box -->
+      <div class="mb-6 p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-sky-400 uppercase tracking-wider flex items-center gap-1.5">
+            <i data-lucide="file-spreadsheet" class="w-4 h-4"></i> Quick Excel / Catalog Row Paste Importer
+          </span>
+          <span class="text-[11px] text-slate-400">Format: Name [tab] Layer (Double/Single) [tab] Size [tab] MRP [tab] DP [tab] Image Path</span>
+        </div>
+        <textarea id="bulk-import-textarea" rows="3" placeholder="Example:
+Classic Vacuum Flask	Double Layer	1000 ml	999	610	images/classic.jpg
+Fridge Steel Bottle	Single Layer	1000 ml	399	205	images/fridge.jpg" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white placeholder:text-slate-600 focus:outline-none focus:border-sky-500 font-mono"></textarea>
+        <div class="flex justify-end">
+          <button onclick="handleBulkCatalogImport()" class="px-4 py-2 bg-gradient-to-r from-sky-500 to-blue-600 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i> Import Pasted Catalog
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Action Toolbar -->
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-6 bg-slate-900/80 p-3.5 rounded-2xl border border-slate-800">
+        <div class="flex items-center gap-2">
+          <button onclick="exportCatalogJSON()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-sky-400 rounded-xl text-xs font-semibold flex items-center gap-1.5">
+            <i data-lucide="download" class="w-3.5 h-3.5"></i> Export JSON
+          </button>
+          <label class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer">
+            <i data-lucide="upload" class="w-3.5 h-3.5"></i> Import JSON
+            <input type="file" accept=".json" onchange="importCatalogJSON(event)" class="hidden">
+          </label>
+        </div>
+        <button onclick="resetToDefaultCatalog()" class="text-xs text-red-400 hover:underline">
+          Reset to Factory Defaults
+        </button>
+      </div>
+
+      <!-- Products Management List -->
+      <div class="space-y-3" id="admin-products-list">
+        <!-- Rendered dynamically -->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification Alert -->
+  <div id="toast-notification" class="fixed top-24 right-6 z-50 bg-slate-900 border border-sky-500/60 text-white px-5 py-3 rounded-2xl shadow-2xl hidden flex items-center gap-3">
+    <div class="w-7 h-7 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center">
+      <i data-lucide="bell" class="w-4 h-4"></i>
+    </div>
+    <span id="toast-message" class="text-xs font-medium">Notification</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="mt-auto bg-slate-950 border-t border-slate-800/80 py-12 text-slate-400 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xl font-extrabold text-white tracking-tight uppercase font-display">nanobot</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded bg-sky-950 text-sky-400 font-mono font-bold border border-sky-800">MFG</span>
+          </div>
+          <p class="leading-relaxed">
+            Manufacturer of Double Layer Stainless Steel Vacuum Flasks and Single Layer Fridge Bottles.
+          </p>
+          <div class="text-[11px] text-slate-500">
+            Certified Food Grade SUS 304 • BPA Free • ISO 9001:2015
+          </div>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white mb-3 text-xs uppercase tracking-wider">Product Categories</h4>
+          <ul class="space-y-2">
+            <li><a href="#catalog" onclick="setLayerFilter('double_layer', 'double_layer')" class="hover:text-sky-400 transition">Double Layer Vacuum Flasks</a></li>
+            <li><a href="#catalog" onclick="setLayerFilter('single_layer', 'single_layer')" class="hover:text-sky-400 transition">Single Layer Fridge Bottles</a></li>
+            <li><a href="#catalog" onclick="setLayerFilter('sports', 'all')" class="hover:text-sky-400 transition">Sports Sipper Bottles</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white mb-3 text-xs uppercase tracking-wider">Custom Services</h4>
+          <ul class="space-y-2">
+            <li><a href="#customizer-section" class="hover:text-sky-400 transition">Laser Engraving Studio</a></li>
+            <li><a href="#wholesale" class="hover:text-sky-400 transition">Corporate Gifting Orders</a></li>
+            <li><a href="#wholesale" class="hover:text-sky-400 transition">Dealer (DP) Distribution</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white mb-3 text-xs uppercase tracking-wider">Factory Sales Desk</h4>
+          <ul class="space-y-2">
+            <li class="flex items-center gap-2">
+              <i data-lucide="mail" class="w-3.5 h-3.5 text-sky-400"></i>
+              <span>sales@nanobot.in</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="phone" class="w-3.5 h-3.5 text-sky-400"></i>
+              <span>+91 98765 43210</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
+        <div>© 2026 Nanobot Stainless Steel Bottles Pvt. Ltd. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- App Scripts -->
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

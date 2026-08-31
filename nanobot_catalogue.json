@@ -1,0 +1,13 @@
+[
+  {
+    "page": 1,
+    "text": "S.NO\nMODEL\nBEFORE\nAFTER\nS.NO\nMODEL\n1\nTHJERMAX 350 ML\n2\nTHJERMAX 500 ML\n3\nTHJERMAX 750 ML\n4\nTHJERMAX 1000 ML\n6\nUNIVA 350 ML\n7\nUNIVA 460 ML\nS.NO\nMODEL\n1\nPICO 400 ML\n2\nAGUA 1000 ML\n3\nSLEEK 300 ML\n4\nSLEEK 500 ML\n5\nNERO 400 ML\n6\nNERO 600 ML\n7\nTWISTA 1000 ML\n8\nSPORTS 500 ML\nHIKER\n4\n800\n900\nNEER \n200\n220\nMINCE \n2\n3\n700\n750\n5\n500\n525\nVEPO \n1\nADD ITEM SINGLE LAYER\nIMAGE\nDORO 700 ML\nCHANGE CAPACITY ITEM \nIMAGE\n NANOBOT CATALOGUE \nADD ITEM DOUBLE LAYER\nIMAGE\n",
+    "images": [
+      "images/nanobot_catalogue_p1_img1.jpeg",
+      "images/nanobot_catalogue_p1_img3.jpeg",
+      "images/nanobot_catalogue_p1_img4.jpeg",
+      "images/nanobot_catalogue_p1_img8.jpeg"
+    ],
+    "preview": "images/nanobot_catalogue_p1.png"
+  }
+]
