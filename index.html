@@ -2,7 +2,7 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Nanobot | Stainless Steel Bottle Catalog & Quotation</title>
   
   <meta name="description" content="Nanobot Official Digital Catalog. Double Layer Vacuum Insulated and Single Layer Stainless Steel Fridge Bottles with MRP & DP Wholesale pricing.">
@@ -35,7 +35,7 @@
 
   <!-- Self-Contained Styles -->
   <style>
-/* Nanobot Custom Metallic & Modern Styling */
+/* Nanobot Custom Metallic & Modern Mobile-First Styling */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
 
@@ -57,11 +57,16 @@
   --nano-emerald: #10b981;
 }
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
   background-color: #0b0f19;
   color: #e2e8f0;
   overflow-x: hidden;
+  padding-bottom: env(safe-area-inset-bottom, 20px);
 }
 
 h1, h2, h3, .font-display {
@@ -70,8 +75,8 @@ h1, h2, h3, .font-display {
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -87,25 +92,40 @@ h1, h2, h3, .font-display {
   background: #475569;
 }
 
+/* Hide scrollbar for clean horizontal chip swiping */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Glassmorphism & Metallic Effects */
 .glass-panel {
-  background: rgba(15, 23, 42, 0.75);
+  background: rgba(15, 23, 42, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glass-card {
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.65) 0%, rgba(15, 23, 42, 0.85) 100%);
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: all 0.25s ease-out;
 }
 
-.glass-card:hover {
-  border-color: rgba(56, 189, 248, 0.4);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 35px -10px rgba(2, 132, 199, 0.2);
+@media (hover: hover) {
+  .glass-card:hover {
+    border-color: rgba(56, 189, 248, 0.5);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 30px -10px rgba(2, 132, 199, 0.25);
+  }
+}
+
+.glass-card:active {
+  transform: scale(0.99);
 }
 
 .metallic-gradient-text {
@@ -114,175 +134,79 @@ h1, h2, h3, .font-display {
   -webkit-text-fill-color: transparent;
 }
 
-.metallic-cyan-gradient {
-  background: linear-gradient(135deg, #38bdf8 0%, #0284c7 50%, #0369a1 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.steel-sheen {
-  position: relative;
-  overflow: hidden;
-}
-
-.steel-sheen::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    60deg,
-    transparent 20%,
-    rgba(255, 255, 255, 0.08) 30%,
-    rgba(255, 255, 255, 0.18) 35%,
-    transparent 45%
-  );
-  transform: rotate(25deg);
-  pointer-events: none;
-  animation: sheen-flow 7s infinite ease-in-out;
-}
-
-@keyframes sheen-flow {
-  0% { transform: translate(-100%, -100%) rotate(25deg); }
-  35%, 100% { transform: translate(100%, 100%) rotate(25deg); }
-}
-
-/* Bottle Render Animations */
-.bottle-mockup-wrapper {
-  transition: transform 0.4s ease;
-  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.5));
-}
-
-.bottle-mockup-wrapper:hover {
-  transform: scale(1.04) rotate(-1.5deg);
-}
-
-/* Glow rings */
-.glow-cyan {
-  box-shadow: 0 0 30px rgba(56, 189, 248, 0.25);
-}
-
-.glow-emerald {
-  box-shadow: 0 0 30px rgba(16, 185, 129, 0.25);
-}
-
-/* Custom Checkbox & Radio */
-.custom-radio:checked {
-  border-color: #0284c7;
-  background-color: #0284c7;
-}
-
-/* Toast Notifications */
-.toast-slide-in {
-  animation: slideInUp 0.3s ease forwards;
-}
-
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+/* Input zoom prevention for iOS */
+@media screen and (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important;
   }
 }
 
-/* Modal Transitions */
-.modal-backdrop {
-  background: rgba(4, 7, 18, 0.85);
-  backdrop-filter: blur(8px);
+/* Mobile Bottom Navigation Bar */
+.mobile-floating-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  background: rgba(11, 15, 25, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 16px;
+  padding-bottom: max(10px, env(safe-area-inset-bottom));
 }
 
-/* Badge Pulse */
-@keyframes pulse-subtle {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.85; transform: scale(1.05); }
-}
-
-.pulse-badge {
-  animation: pulse-subtle 3s infinite ease-in-out;
-}
-
-/* Tab active indicator */
-.tab-active {
-  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-  color: #ffffff !important;
-  box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
-}
-
-/* Customizer Bottle Canvas */
-#customizer-canvas-container {
-  min-height: 420px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Print Optimization */
-@media print {
-  body {
-    background: white;
-    color: black;
-  }
-  .no-print {
-    display: none !important;
-  }
+/* Touch Friendly Buttons */
+button, a {
+  touch-action: manipulation;
 }
 
   </style>
 </head>
-<body class="bg-[#0b0f19] text-slate-100 min-h-screen flex flex-col selection:bg-sky-500 selection:text-white font-sans">
+<body class="bg-[#0b0f19] text-slate-100 min-h-screen flex flex-col selection:bg-sky-500 selection:text-white font-sans pb-20 sm:pb-8">
 
   <!-- Navbar -->
   <header class="sticky top-0 z-40 glass-panel border-b border-slate-800/80">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 py-3 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-18 py-2.5 flex items-center justify-between">
       
       <!-- Brand Logo -->
-      <a href="#" class="flex items-center gap-3 group">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-cyan-400 p-0.5 shadow-md shadow-sky-500/20 group-hover:scale-105 transition">
+      <a href="#" class="flex items-center gap-2.5 group">
+        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-cyan-400 p-0.5 shadow-md shadow-sky-500/20 group-hover:scale-105 transition shrink-0">
           <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-            <i data-lucide="flask-conical" class="w-5 h-5 text-sky-400"></i>
+            <i data-lucide="flask-conical" class="w-4 h-4 sm:w-5 sm:h-5 text-sky-400"></i>
           </div>
         </div>
         <div>
-          <span class="text-xl font-black tracking-tight font-display metallic-gradient-text uppercase">NANOBOT</span>
-          <div class="text-[9px] uppercase font-bold tracking-widest text-sky-400 -mt-0.5">SUS 304 Bottle Mfg.</div>
+          <span class="text-lg sm:text-xl font-black tracking-tight font-display metallic-gradient-text uppercase">NANOBOT</span>
+          <div class="text-[8px] sm:text-[9px] uppercase font-bold tracking-widest text-sky-400 -mt-0.5">SUS 304 Bottles</div>
         </div>
       </a>
 
-      <!-- Quick Nav Links -->
+      <!-- Quick Nav Links (Desktop) -->
       <nav class="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-300">
         <a href="#catalog" class="hover:text-sky-400 transition">Products Catalog</a>
         <a href="#wholesale" class="hover:text-sky-400 transition">Wholesale Margins</a>
       </nav>
 
       <!-- Right Header Actions -->
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 sm:gap-3">
         
         <!-- Pricing Mode Switcher (DP vs MRP) -->
-        <div class="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800">
-          <button id="btn-mode-dp" class="px-3 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-600 text-white shadow-sm flex items-center gap-1 cursor-pointer">
-            <span>DP Price</span>
-            <span class="text-[9px] px-1 bg-emerald-950 text-emerald-300 rounded font-mono">Wholesale</span>
+        <div class="flex items-center bg-slate-900 p-0.5 sm:p-1 rounded-xl border border-slate-800">
+          <button id="btn-mode-dp" class="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[11px] sm:text-xs font-bold transition bg-emerald-600 text-white shadow-sm flex items-center gap-1 cursor-pointer">
+            <span>DP Rate</span>
+            <span class="hidden sm:inline text-[9px] px-1 bg-emerald-950 text-emerald-300 rounded font-mono">Wholesale</span>
           </button>
-          <button id="btn-mode-mrp" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition cursor-pointer">
-            MRP (Retail)
+          <button id="btn-mode-mrp" class="px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[11px] sm:text-xs font-medium text-slate-400 hover:text-white transition cursor-pointer">
+            MRP
           </button>
         </div>
 
-        <!-- Admin Catalog Button -->
-        <button onclick="openAdminModal()" class="hidden sm:flex px-2.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800 transition text-xs items-center gap-1 cursor-pointer" title="Catalog Manager">
-          <i data-lucide="settings" class="w-4 h-4"></i>
-        </button>
-
         <!-- Quotation Cart Button -->
-        <button onclick="openCartDrawer()" class="relative py-2 px-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-xs font-bold flex items-center gap-1.5 shadow-md shadow-sky-950 transition active:scale-95 cursor-pointer">
-          <i data-lucide="shopping-bag" class="w-4 h-4"></i>
-          <span>Quotation</span>
-          <span id="cart-badge-count" class="w-5 h-5 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center" style="display: none;">0</span>
+        <button onclick="openCartDrawer()" class="relative py-1.5 sm:py-2 px-3 sm:px-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-xs font-bold flex items-center gap-1.5 shadow-md shadow-sky-950 transition active:scale-95 cursor-pointer">
+          <i data-lucide="shopping-bag" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+          <span class="hidden sm:inline">Quotation</span>
+          <span id="cart-badge-count" class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-red-500 text-white text-[9px] sm:text-[10px] font-bold flex items-center justify-center" style="display: none;">0</span>
         </button>
 
       </div>
@@ -291,138 +215,137 @@ h1, h2, h3, .font-display {
   </header>
 
   <!-- Hero & Simple Bottle Finder Section -->
-  <section class="relative pt-8 pb-10 overflow-hidden border-b border-slate-800/80">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+  <section class="relative pt-6 sm:pt-8 pb-6 sm:pb-10 overflow-hidden border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 relative z-10">
       
       <!-- Headline -->
-      <div class="text-center max-w-3xl mx-auto mb-8">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-xs font-medium text-sky-400 mb-3">
-          <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
-          <span>100% Virgin Food-Grade SUS 304 Stainless Steel</span>
+      <div class="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-slate-900 border border-slate-800 text-[10px] sm:text-xs font-medium text-sky-400 mb-2 sm:mb-3">
+          <i data-lucide="shield-check" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i>
+          <span>100% Virgin SUS 304 Stainless Steel</span>
         </div>
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-          Nanobot Stainless Steel Bottles
+        <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+          Nanobot Bottle Catalog
         </h1>
-        <p class="text-sm sm:text-base text-slate-400 mt-2">
-          Double Layer Vacuum Insulated (24h Cold / 18h Hot) and Single Layer Rapid Fridge Bottles. Filter by capacity or price below to find your models.
+        <p class="text-xs sm:text-sm text-slate-400 mt-1 sm:mt-2 px-2">
+          Double Layer Vacuum Insulated (24h Cold / 18h Hot) & Single Layer Fridge Bottles. Filter by capacity or budget below.
         </p>
       </div>
 
       <!-- ========================================== -->
-      <!-- SIMPLE CUSTOMER FILTER (Capacity & Price) -->
+      <!-- MOBILE-FRIENDLY FILTER RAILS (Swipeable) -->
       <!-- ========================================== -->
-      <div class="bg-slate-900/90 border border-slate-800 p-5 sm:p-6 rounded-2xl shadow-2xl max-w-5xl mx-auto backdrop-blur-xl">
+      <div class="bg-slate-900/90 border border-slate-800 p-4 sm:p-6 rounded-2xl shadow-2xl max-w-5xl mx-auto backdrop-blur-xl">
         
-        <!-- Filter Row 1: Layer Type Switcher -->
-        <div class="mb-5">
-          <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-            <i data-lucide="layers" class="w-4 h-4 text-sky-400"></i>
-            <span>1. Select Category / Layer:</span>
+        <!-- Filter Row 1: Layer Type (Horizontal Swipe on mobile) -->
+        <div class="mb-4 sm:mb-5">
+          <div class="text-[11px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+            <i data-lucide="layers" class="w-3.5 h-3.5 text-sky-400"></i>
+            <span>1. Select Layer Type:</span>
           </div>
-          <div class="flex flex-wrap items-center gap-2" id="layer-filter-buttons">
-            <button onclick="setFilterLayer('all')" data-layer="all" class="filter-layer-btn px-4 py-2 rounded-xl text-xs font-bold transition bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-950/60 flex items-center gap-1.5 cursor-pointer">
+          <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 -mx-1 px-1" id="layer-filter-buttons">
+            <button onclick="setFilterLayer('all')" data-layer="all" class="filter-layer-btn shrink-0 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold transition bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-950/60 flex items-center gap-1.5 cursor-pointer">
               <span>✨ All Bottles (26)</span>
             </button>
-            <button onclick="setFilterLayer('double_layer')" data-layer="double_layer" class="filter-layer-btn px-4 py-2 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800 transition flex items-center gap-1.5 cursor-pointer">
+            <button onclick="setFilterLayer('double_layer')" data-layer="double_layer" class="filter-layer-btn shrink-0 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800 transition flex items-center gap-1.5 cursor-pointer">
               <i data-lucide="flame" class="w-3.5 h-3.5 text-amber-400"></i>
               <span>Double Layer Vacuum (24h Cold / 18h Hot)</span>
             </button>
-            <button onclick="setFilterLayer('single_layer')" data-layer="single_layer" class="filter-layer-btn px-4 py-2 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800 transition flex items-center gap-1.5 cursor-pointer">
+            <button onclick="setFilterLayer('single_layer')" data-layer="single_layer" class="filter-layer-btn shrink-0 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800 transition flex items-center gap-1.5 cursor-pointer">
               <i data-lucide="snowflake" class="w-3.5 h-3.5 text-sky-400"></i>
-              <span>Single Layer (Fast Fridge Chilling)</span>
+              <span>Single Layer (Fridge Bottles)</span>
             </button>
           </div>
         </div>
 
-        <!-- Filter Row 2: Capacity Size Chips -->
-        <div class="mb-5">
-          <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-            <i data-lucide="droplet" class="w-4 h-4 text-sky-400"></i>
-            <span>2. Filter by Capacity Size:</span>
+        <!-- Filter Row 2: Capacity Size Chips (Horizontal Swipe on mobile) -->
+        <div class="mb-4 sm:mb-5">
+          <div class="text-[11px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+            <i data-lucide="droplet" class="w-3.5 h-3.5 text-sky-400"></i>
+            <span>2. Select Capacity Size:</span>
           </div>
-          <div class="flex flex-wrap items-center gap-2" id="capacity-filter-buttons">
-            <button onclick="setFilterCapacity('all')" data-cap="all" class="filter-cap-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition bg-sky-500/20 text-sky-300 border border-sky-500/60 shadow-sm cursor-pointer">
+          <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 -mx-1 px-1" id="capacity-filter-buttons">
+            <button onclick="setFilterCapacity('all')" data-cap="all" class="filter-cap-btn shrink-0 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-bold transition bg-sky-500/20 text-sky-300 border border-sky-500/60 shadow-sm cursor-pointer">
               All Sizes
             </button>
-            <button onclick="setFilterCapacity('compact')" data-cap="compact" class="filter-cap-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
+            <button onclick="setFilterCapacity('compact')" data-cap="compact" class="filter-cap-btn shrink-0 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
               Compact & Kids (300 - 460 ml)
             </button>
-            <button onclick="setFilterCapacity('500')" data-cap="500" class="filter-cap-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
-              500 ml (Office / School)
+            <button onclick="setFilterCapacity('500')" data-cap="500" class="filter-cap-btn shrink-0 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
+              500 ml
             </button>
-            <button onclick="setFilterCapacity('750')" data-cap="750" class="filter-cap-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
-              750 ml (Standard Gym)
+            <button onclick="setFilterCapacity('750')" data-cap="750" class="filter-cap-btn shrink-0 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
+              750 ml
             </button>
-            <button onclick="setFilterCapacity('1000')" data-cap="1000" class="filter-cap-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
-              1000 ml (1 Litre Full Day)
+            <button onclick="setFilterCapacity('1000')" data-cap="1000" class="filter-cap-btn shrink-0 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
+              1000 ml (1 Litre)
             </button>
-            <button onclick="setFilterCapacity('large')" data-cap="large" class="filter-cap-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
-              1.2L - 1.8L (Expedition & Kettl)
+            <button onclick="setFilterCapacity('large')" data-cap="large" class="filter-cap-btn shrink-0 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
+              1.2L - 1.8L (Large)
             </button>
           </div>
         </div>
 
-        <!-- Filter Row 3: Price / Budget Chips & Slider -->
-        <div class="mb-5">
-          <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2.5 flex items-center justify-between">
+        <!-- Filter Row 3: Price / Budget Chips (Horizontal Swipe on mobile) -->
+        <div class="mb-4 sm:mb-5">
+          <div class="text-[11px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center justify-between">
             <div class="flex items-center gap-1.5">
-              <i data-lucide="tag" class="w-4 h-4 text-emerald-400"></i>
-              <span>3. Filter by Price Budget:</span>
+              <i data-lucide="tag" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span>3. Filter by Price:</span>
             </div>
             <span class="text-xs font-mono text-emerald-400 font-bold" id="price-slider-display">Up to ₹2,500</span>
           </div>
           
-          <div class="flex flex-wrap items-center gap-2 mb-3" id="price-filter-buttons">
-            <button onclick="setFilterPrice('all')" data-price="all" class="filter-price-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition bg-emerald-500/20 text-emerald-300 border border-emerald-500/60 shadow-sm cursor-pointer">
+          <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 mb-2.5 -mx-1 px-1" id="price-filter-buttons">
+            <button onclick="setFilterPrice('all')" data-price="all" class="filter-price-btn shrink-0 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-bold transition bg-emerald-500/20 text-emerald-300 border border-emerald-500/60 shadow-sm cursor-pointer">
               All Budgets
             </button>
-            <button onclick="setFilterPrice('under_300')" data-price="under_300" class="filter-price-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
+            <button onclick="setFilterPrice('under_300')" data-price="under_300" class="filter-price-btn shrink-0 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
               Under ₹300
             </button>
-            <button onclick="setFilterPrice('300_500')" data-price="300_500" class="filter-price-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
+            <button onclick="setFilterPrice('300_500')" data-price="300_500" class="filter-price-btn shrink-0 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
               ₹300 - ₹500
             </button>
-            <button onclick="setFilterPrice('500_800')" data-price="500_800" class="filter-price-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
+            <button onclick="setFilterPrice('500_800')" data-price="500_800" class="filter-price-btn shrink-0 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
               ₹500 - ₹800
             </button>
-            <button onclick="setFilterPrice('800_1200')" data-price="800_1200" class="filter-price-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
+            <button onclick="setFilterPrice('800_1200')" data-price="800_1200" class="filter-price-btn shrink-0 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
               ₹800 - ₹1,200
             </button>
-            <button onclick="setFilterPrice('above_1200')" data-price="above_1200" class="filter-price-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
-              Above ₹1,200 (Combos & Carafes)
+            <button onclick="setFilterPrice('above_1200')" data-price="above_1200" class="filter-price-btn shrink-0 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
+              Above ₹1,200
             </button>
           </div>
 
           <!-- Price Slider -->
           <div class="flex items-center gap-3">
-            <span class="text-[11px] text-slate-500 font-mono">₹100</span>
-            <input type="range" id="price-range-slider" min="150" max="2500" step="50" value="2500" oninput="handlePriceSliderChange(this.value)" class="flex-1 accent-emerald-400 h-1.5 bg-slate-800 rounded-lg cursor-pointer">
-            <span class="text-[11px] text-slate-500 font-mono">₹2,500+</span>
+            <span class="text-[10px] sm:text-[11px] text-slate-500 font-mono">₹100</span>
+            <input type="range" id="price-range-slider" min="150" max="2500" step="50" value="2500" oninput="handlePriceSliderChange(this.value)" class="flex-1 accent-emerald-400 h-2 bg-slate-800 rounded-lg cursor-pointer">
+            <span class="text-[10px] sm:text-[11px] text-slate-500 font-mono">₹2,500+</span>
           </div>
         </div>
 
         <!-- Search Bar, Sort & Result Counter -->
-        <div class="pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div class="pt-3 sm:pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-2.5 sm:gap-3">
           
           <!-- Search Input -->
           <div class="relative w-full sm:w-72">
             <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
-            <input type="text" id="search-input" placeholder="Search model name or SKU..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-sky-500 transition">
+            <input type="text" id="search-input" placeholder="Search model or SKU..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-sky-500 transition">
           </div>
 
-          <!-- Sort Select -->
+          <!-- Sort Select & Counter -->
           <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
-            <select id="sort-select" onchange="handleSortChange(this.value)" class="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-sky-500 cursor-pointer">
-              <option value="featured">Sort: Featured Bestsellers</option>
+            <select id="sort-select" onchange="handleSortChange(this.value)" class="bg-slate-950 border border-slate-800 rounded-xl px-2.5 sm:px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-sky-500 cursor-pointer">
+              <option value="featured">Sort: Featured</option>
               <option value="price_asc">Price: Low to High</option>
               <option value="price_desc">Price: High to Low</option>
               <option value="capacity_asc">Capacity: Small to Large</option>
             </select>
 
-            <!-- Results Counter & Reset -->
-            <div class="flex items-center gap-2">
-              <span class="text-xs text-slate-400 font-mono font-semibold" id="products-count">26 Models</span>
-              <button onclick="resetFilters()" class="text-xs text-sky-400 hover:text-sky-300 underline font-medium ml-1 cursor-pointer">Reset</button>
+            <div class="flex items-center gap-1.5 sm:gap-2">
+              <span class="text-[11px] sm:text-xs text-slate-400 font-mono font-semibold" id="products-count">26 Models</span>
+              <button onclick="resetFilters()" class="text-[11px] sm:text-xs text-sky-400 hover:text-sky-300 underline font-medium cursor-pointer">Reset</button>
             </div>
           </div>
 
@@ -434,11 +357,11 @@ h1, h2, h3, .font-display {
   </section>
 
   <!-- Product Catalog Grid Section -->
-  <section id="catalog" class="py-12 relative flex-1">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section id="catalog" class="py-6 sm:py-12 relative flex-1">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
       
-      <!-- Dynamic Products Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="products-grid">
+      <!-- Dynamic Responsive Products Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6" id="products-grid">
         <!-- Rendered dynamically -->
       </div>
 
@@ -446,52 +369,64 @@ h1, h2, h3, .font-display {
   </section>
 
   <!-- Wholesale / DP Margins Section -->
-  <section id="wholesale" class="py-12 bg-slate-950 border-t border-slate-800">
+  <section id="wholesale" class="py-8 sm:py-12 bg-slate-950 border-t border-slate-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h3 class="text-xl font-bold text-white font-display mb-2">Volume Discounts & Dealer Margins</h3>
-      <p class="text-xs text-slate-400 max-w-xl mx-auto mb-6">Transparent tiered wholesale pricing applied automatically to bulk corporate & dealer quotations.</p>
+      <h3 class="text-lg sm:text-xl font-bold text-white font-display mb-1.5">Volume Discounts & Dealer Margins</h3>
+      <p class="text-[11px] sm:text-xs text-slate-400 max-w-xl mx-auto mb-4 sm:mb-6">Applied automatically to bulk corporate & dealer quotations.</p>
       
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto">
-        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 text-center">
-          <div class="text-xs font-bold text-sky-400 font-mono">10 - 49 Units</div>
-          <div class="text-sm font-bold text-white mt-1">DP Dealer Rate</div>
-          <div class="text-[11px] text-slate-500 mt-0.5">Base Wholesale Price</div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 max-w-4xl mx-auto">
+        <div class="p-3 sm:p-4 rounded-xl bg-slate-900 border border-slate-800 text-center">
+          <div class="text-[11px] sm:text-xs font-bold text-sky-400 font-mono">10 - 49 Units</div>
+          <div class="text-xs sm:text-sm font-bold text-white mt-0.5">DP Dealer Rate</div>
+          <div class="text-[9px] sm:text-[11px] text-slate-500 mt-0.5">Base Wholesale</div>
         </div>
-        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 text-center">
-          <div class="text-xs font-bold text-emerald-400 font-mono">50 - 199 Units</div>
-          <div class="text-sm font-bold text-white mt-1">10% Extra on DP</div>
-          <div class="text-[11px] text-slate-500 mt-0.5">Corporate Bulk Tier</div>
+        <div class="p-3 sm:p-4 rounded-xl bg-slate-900 border border-slate-800 text-center">
+          <div class="text-[11px] sm:text-xs font-bold text-emerald-400 font-mono">50 - 199 Units</div>
+          <div class="text-xs sm:text-sm font-bold text-white mt-0.5">10% Extra on DP</div>
+          <div class="text-[9px] sm:text-[11px] text-slate-500 mt-0.5">Corporate Bulk</div>
         </div>
-        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 text-center">
-          <div class="text-xs font-bold text-amber-400 font-mono">200 - 499 Units</div>
-          <div class="text-sm font-bold text-white mt-1">15% Extra on DP</div>
-          <div class="text-[11px] text-slate-500 mt-0.5">Super Stockist Tier</div>
+        <div class="p-3 sm:p-4 rounded-xl bg-slate-900 border border-slate-800 text-center">
+          <div class="text-[11px] sm:text-xs font-bold text-amber-400 font-mono">200 - 499 Units</div>
+          <div class="text-xs sm:text-sm font-bold text-white mt-0.5">15% Extra on DP</div>
+          <div class="text-[9px] sm:text-[11px] text-slate-500 mt-0.5">Super Stockist</div>
         </div>
-        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 text-center">
-          <div class="text-xs font-bold text-purple-400 font-mono">500+ Units</div>
-          <div class="text-sm font-bold text-white mt-1">22% Extra on DP</div>
-          <div class="text-[11px] text-slate-500 mt-0.5">Factory Direct OEM</div>
+        <div class="p-3 sm:p-4 rounded-xl bg-slate-900 border border-slate-800 text-center">
+          <div class="text-[11px] sm:text-xs font-bold text-purple-400 font-mono">500+ Units</div>
+          <div class="text-xs sm:text-sm font-bold text-white mt-0.5">22% Extra on DP</div>
+          <div class="text-[9px] sm:text-[11px] text-slate-500 mt-0.5">Factory OEM</div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="py-8 bg-[#070a12] border-t border-slate-800/80 text-xs text-slate-500">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+  <footer class="py-6 sm:py-8 bg-[#070a12] border-t border-slate-800/80 text-[11px] sm:text-xs text-slate-500 text-center sm:text-left">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
       <div class="flex items-center gap-2">
         <span class="font-bold text-white uppercase tracking-wider">NANOBOT</span>
-        <span>• S-272, IInd Phase, M.I.A, Area Basni, Jodhpur - 342005 Rajasthan, India</span>
+        <span>• Basni, Jodhpur - 342005 Rajasthan</span>
       </div>
       <div>
-        <span>100% Virgin SUS 304 Stainless Steel Bottles • All Rights Reserved</span>
+        <span>100% Virgin SUS 304 Stainless Steel</span>
       </div>
     </div>
   </footer>
 
-  <!-- Slide-out Quotation Drawer -->
-  <div id="cart-drawer" class="fixed inset-y-0 right-0 w-full max-w-md bg-slate-950 border-l border-slate-800 z-50 transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
-    <div class="p-4 border-b border-slate-800 flex items-center justify-between">
+  <!-- Floating Mobile Quotation Bottom Bar -->
+  <div id="mobile-bottom-bar" class="mobile-floating-bar sm:hidden hidden items-center justify-between shadow-2xl">
+    <div>
+      <div class="text-[11px] text-slate-400 font-medium" id="mobile-bar-qty">0 Bottles</div>
+      <div class="text-sm font-bold text-emerald-400 font-display" id="mobile-bar-total">₹0</div>
+    </div>
+    <button onclick="openCartDrawer()" class="py-2 px-4 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-sky-950 cursor-pointer active:scale-95">
+      <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
+      <span>View Quotation</span>
+    </button>
+  </div>
+
+  <!-- Slide-out Quotation Drawer (Mobile Optimized) -->
+  <div id="cart-drawer" class="fixed inset-y-0 right-0 w-full sm:max-w-md bg-slate-950 border-l border-slate-800 z-50 transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
+    <div class="p-3.5 sm:p-4 border-b border-slate-800 flex items-center justify-between">
       <div class="flex items-center gap-2">
         <i data-lucide="shopping-bag" class="w-5 h-5 text-sky-400"></i>
         <h3 class="font-bold text-white text-base">Your Quotation List</h3>
@@ -501,37 +436,37 @@ h1, h2, h3, .font-display {
       </button>
     </div>
 
-    <div id="cart-tier-info" class="px-4 pt-3"></div>
+    <div id="cart-tier-info" class="px-3.5 sm:px-4 pt-3"></div>
 
-    <div class="flex-1 overflow-y-auto p-4 space-y-3" id="cart-items-container"></div>
+    <div class="flex-1 overflow-y-auto p-3.5 sm:p-4 space-y-2.5 sm:space-y-3" id="cart-items-container"></div>
 
-    <div class="p-4 border-t border-slate-800 bg-slate-900/60 space-y-3">
+    <div class="p-3.5 sm:p-4 border-t border-slate-800 bg-slate-900/80 space-y-2.5 sm:space-y-3">
       <div class="grid grid-cols-2 gap-2 text-xs">
-        <input type="text" id="client-name" placeholder="Your Name" class="bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white placeholder:text-slate-500 focus:outline-none focus:border-sky-500">
-        <input type="text" id="client-company" placeholder="Company / City" class="bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white placeholder:text-slate-500 focus:outline-none focus:border-sky-500">
+        <input type="text" id="client-name" placeholder="Your Name" class="bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-2 text-white placeholder:text-slate-500 focus:outline-none focus:border-sky-500">
+        <input type="text" id="client-company" placeholder="Company / City" class="bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-2 text-white placeholder:text-slate-500 focus:outline-none focus:border-sky-500">
       </div>
 
-      <div class="space-y-1.5 text-xs">
+      <div class="space-y-1 text-xs">
         <div class="flex justify-between text-slate-400">
-          <span>Subtotal:</span>
+          <span>Gross Subtotal:</span>
           <span class="text-slate-200 font-mono" id="cart-subtotal">₹0</span>
         </div>
         <div class="flex justify-between text-emerald-400">
           <span>Volume Discount:</span>
           <span class="font-mono" id="cart-discount">-₹0</span>
         </div>
-        <div class="flex justify-between text-white font-bold text-sm pt-1.5 border-t border-slate-800">
-          <span>Estimated Total:</span>
+        <div class="flex justify-between text-white font-bold text-sm pt-1 border-t border-slate-800">
+          <span>Net Total:</span>
           <span class="text-sky-400 font-mono text-base" id="cart-total">₹0</span>
         </div>
       </div>
 
       <div class="grid grid-cols-2 gap-2 pt-1">
-        <button onclick="generateWhatsAppOrder()" class="py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-md shadow-emerald-950 cursor-pointer">
+        <button onclick="generateWhatsAppOrder()" class="py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-md shadow-emerald-950 cursor-pointer active:scale-95">
           <i data-lucide="message-circle" class="w-4 h-4"></i>
-          <span>Send WhatsApp</span>
+          <span>WhatsApp Quote</span>
         </button>
-        <button onclick="downloadPdfQuotation()" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-sky-400 border border-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer">
+        <button onclick="downloadPdfQuotation()" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-sky-400 border border-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer active:scale-95">
           <i data-lucide="file-text" class="w-4 h-4"></i>
           <span>Download PDF</span>
         </button>
@@ -539,9 +474,9 @@ h1, h2, h3, .font-display {
     </div>
   </div>
 
-  <!-- Product Details Modal -->
-  <div id="product-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-    <div class="bg-slate-950 border border-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative p-6 shadow-2xl">
+  <!-- Product Details Modal (Mobile Bottom Sheet) -->
+  <div id="product-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
+    <div class="bg-slate-950 border-t sm:border border-slate-800 rounded-t-3xl sm:rounded-2xl max-w-2xl w-full max-h-[88vh] sm:max-h-[90vh] overflow-y-auto relative p-5 sm:p-6 shadow-2xl">
       <button onclick="closeModal('product-modal')" class="absolute top-4 right-4 p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
@@ -549,35 +484,9 @@ h1, h2, h3, .font-display {
     </div>
   </div>
 
-  <!-- Admin Modal -->
-  <div id="admin-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-    <div class="bg-slate-950 border border-slate-800 rounded-2xl max-w-3xl w-full max-h-[85vh] overflow-y-auto relative p-6 shadow-2xl">
-      <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-800">
-        <div class="flex items-center gap-2">
-          <i data-lucide="settings" class="w-5 h-5 text-sky-400"></i>
-          <h3 class="text-lg font-bold text-white">Catalog & Price Manager</h3>
-        </div>
-        <button onclick="closeModal('admin-modal')" class="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <div class="flex items-center gap-2 mb-4">
-        <button onclick="exportCatalogJSON()" class="px-3 py-1.5 bg-slate-900 border border-slate-800 hover:bg-slate-800 text-sky-400 rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer">
-          <i data-lucide="download" class="w-3.5 h-3.5"></i> Export JSON
-        </button>
-        <button onclick="resetToDefaultCatalog()" class="px-3 py-1.5 bg-slate-900 border border-slate-800 hover:bg-slate-800 text-red-400 rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer">
-          <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Reset to Factory
-        </button>
-      </div>
-
-      <div class="space-y-3" id="admin-products-list"></div>
-    </div>
-  </div>
-
   <!-- Toast Notification -->
-  <div id="toast-notification" class="fixed bottom-6 right-6 z-50 hidden">
-    <div class="bg-slate-900 border border-sky-500/60 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 text-xs font-semibold">
+  <div id="toast-notification" class="fixed bottom-16 sm:bottom-6 right-4 sm:right-6 z-50 hidden">
+    <div class="bg-slate-900 border border-sky-500/60 text-white px-3.5 py-2.5 rounded-xl shadow-2xl flex items-center gap-2.5 text-xs font-semibold">
       <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 shrink-0"></i>
       <span id="toast-message">Action successful!</span>
     </div>
@@ -1299,7 +1208,7 @@ const BRANDING_OPTIONS = [
   <script>
 /**
  * Nanobot Catalog & Order Portal Application Logic
- * Supports: Embedded Base64 Real PDF Photos, Double Layer vs Single Layer, MRP vs DP Wholesale, Capacity & Price Filtering
+ * Supports: Embedded Base64 Real PDF Photos, Mobile-First UI, MRP vs DP Wholesale, Capacity & Price Filtering
  */
 
 // Application State
@@ -1443,9 +1352,9 @@ function updateFilterButtonsUI() {
   document.querySelectorAll('.filter-layer-btn').forEach(btn => {
     const val = btn.dataset.layer;
     if (val === AppState.activeLayerFilter) {
-      btn.className = 'filter-layer-btn px-4 py-2 rounded-xl text-xs font-bold transition bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-950/60 flex items-center gap-1.5 cursor-pointer';
+      btn.className = 'filter-layer-btn shrink-0 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold transition bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-950/60 flex items-center gap-1.5 cursor-pointer';
     } else {
-      btn.className = 'filter-layer-btn px-4 py-2 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800 transition flex items-center gap-1.5 cursor-pointer';
+      btn.className = 'filter-layer-btn shrink-0 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800 transition flex items-center gap-1.5 cursor-pointer';
     }
   });
 
@@ -1453,9 +1362,9 @@ function updateFilterButtonsUI() {
   document.querySelectorAll('.filter-cap-btn').forEach(btn => {
     const val = btn.dataset.cap;
     if (val === AppState.selectedCapacityRange) {
-      btn.className = 'filter-cap-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition bg-sky-500/20 text-sky-300 border border-sky-500/60 shadow-sm cursor-pointer';
+      btn.className = 'filter-cap-btn shrink-0 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-bold transition bg-sky-500/20 text-sky-300 border border-sky-500/60 shadow-sm cursor-pointer';
     } else {
-      btn.className = 'filter-cap-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer';
+      btn.className = 'filter-cap-btn shrink-0 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer';
     }
   });
 
@@ -1463,9 +1372,9 @@ function updateFilterButtonsUI() {
   document.querySelectorAll('.filter-price-btn').forEach(btn => {
     const val = btn.dataset.price;
     if (val === AppState.selectedPriceRange) {
-      btn.className = 'filter-price-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition bg-emerald-500/20 text-emerald-300 border border-emerald-500/60 shadow-sm cursor-pointer';
+      btn.className = 'filter-price-btn shrink-0 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-bold transition bg-emerald-500/20 text-emerald-300 border border-emerald-500/60 shadow-sm cursor-pointer';
     } else {
-      btn.className = 'filter-price-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer';
+      btn.className = 'filter-price-btn shrink-0 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer';
     }
   });
 }
@@ -1559,37 +1468,37 @@ function renderProductCard(product) {
     <div class="glass-card rounded-2xl overflow-hidden flex flex-col group border border-slate-800/80 hover:border-sky-500/40 relative bg-slate-900/60" id="card-${product.id}">
       
       <!-- Badges -->
-      <div class="absolute top-3 left-3 z-10 flex flex-col gap-1 items-start pointer-events-none">
-        <span class="px-2.5 py-0.5 ${isDoubleLayer ? 'bg-amber-500/20 text-amber-300 border-amber-500/40' : 'bg-sky-500/20 text-sky-300 border-sky-500/40'} border rounded-full text-[10px] font-bold flex items-center gap-1 backdrop-blur-md">
-          <i data-lucide="${isDoubleLayer ? 'flame' : 'snowflake'}" class="w-3 h-3"></i>
+      <div class="absolute top-2.5 left-2.5 z-10 flex flex-col gap-1 items-start pointer-events-none">
+        <span class="px-2 sm:px-2.5 py-0.5 ${isDoubleLayer ? 'bg-amber-500/20 text-amber-300 border-amber-500/40' : 'bg-sky-500/20 text-sky-300 border-sky-500/40'} border rounded-full text-[9px] sm:text-[10px] font-bold flex items-center gap-1 backdrop-blur-md">
+          <i data-lucide="${isDoubleLayer ? 'flame' : 'snowflake'}" class="w-2.5 h-2.5 sm:w-3 sm:h-3"></i>
           <span>${isDoubleLayer ? 'Double Layer (Vacuum)' : 'Single Layer (Fridge)'}</span>
         </span>
       </div>
 
       <!-- Bottle Visual Stage -->
-      <div class="p-4 bg-gradient-to-b from-slate-950/60 to-slate-900/40 flex items-center justify-center relative cursor-pointer min-h-[220px]" onclick="openProductModal('${product.id}')">
-        <div class="w-full h-48 relative flex items-center justify-center">
-          <img src="${product.imageUrl}" alt="${product.name}" class="max-h-44 max-w-full object-contain drop-shadow-xl hover:scale-105 transition duration-300">
+      <div class="p-3 sm:p-4 bg-gradient-to-b from-slate-950/60 to-slate-900/40 flex items-center justify-center relative cursor-pointer min-h-[190px] sm:min-h-[220px]" onclick="openProductModal('${product.id}')">
+        <div class="w-full h-40 sm:h-48 relative flex items-center justify-center">
+          <img src="${product.imageUrl}" alt="${product.name}" class="max-h-36 sm:max-h-44 max-w-full object-contain drop-shadow-xl hover:scale-105 transition duration-300">
         </div>
-        <div class="absolute bottom-1 right-3 text-[10px] text-slate-500 font-mono">${product.sku}</div>
+        <div class="absolute bottom-1 right-2.5 text-[9px] sm:text-[10px] text-slate-500 font-mono">${product.sku}</div>
       </div>
 
       <!-- Details Body -->
-      <div class="p-4 flex-1 flex flex-col justify-between">
+      <div class="p-3.5 sm:p-4 flex-1 flex flex-col justify-between">
         <div>
-          <h3 class="font-bold text-white text-sm leading-snug hover:text-sky-400 cursor-pointer transition mb-1" onclick="openProductModal('${product.id}')">
+          <h3 class="font-bold text-white text-xs sm:text-sm leading-snug hover:text-sky-400 cursor-pointer transition mb-1 line-clamp-1" onclick="openProductModal('${product.id}')">
             ${product.name}
           </h3>
-          <p class="text-[11px] text-slate-400 mb-2.5 line-clamp-1">${product.tagline}</p>
+          <p class="text-[10px] sm:text-[11px] text-slate-400 mb-2 line-clamp-1">${product.tagline}</p>
 
           <!-- Capacity Size Chips -->
-          <div class="mb-3">
-            <div class="text-[10px] text-slate-400 uppercase font-semibold tracking-wider mb-1">Capacities:</div>
+          <div class="mb-2.5">
+            <div class="text-[9px] sm:text-[10px] text-slate-400 uppercase font-semibold tracking-wider mb-1">Capacities:</div>
             <div class="flex flex-wrap gap-1" id="variants-${product.id}">
               ${product.variants.map((v, idx) => `
                 <button type="button" 
                         onclick="selectCardVariant('${product.id}', ${idx})" 
-                        class="variant-btn-${product.id} px-2 py-0.5 text-[11px] rounded-lg border transition font-medium cursor-pointer ${
+                        class="variant-btn-${product.id} px-2 py-0.5 text-[10px] sm:text-[11px] rounded-lg border transition font-medium cursor-pointer ${
                           idx === 0 
                             ? 'bg-sky-500/20 text-sky-300 border-sky-500/60 shadow-sm' 
                             : 'bg-slate-950 text-slate-400 border-slate-800 hover:border-slate-700'
@@ -1603,22 +1512,22 @@ function renderProductCard(product) {
         </div>
 
         <!-- Pricing (MRP & DP Price) & Action Bar -->
-        <div class="pt-2.5 border-t border-slate-800/80">
-          <div class="flex items-end justify-between mb-2.5">
+        <div class="pt-2 sm:pt-2.5 border-t border-slate-800/80">
+          <div class="flex items-end justify-between mb-2">
             <div>
-              <div class="flex items-center gap-1.5 text-[11px]">
+              <div class="flex items-center gap-1.5 text-[10px] sm:text-[11px]">
                 <span class="text-slate-400">MRP:</span>
-                <span class="font-bold text-slate-300 ${isDpMode ? 'line-through' : 'text-sky-400 font-display text-sm'}" id="mrp-display-${product.id}">
+                <span class="font-bold text-slate-300 ${isDpMode ? 'line-through' : 'text-sky-400 font-display text-xs sm:text-sm'}" id="mrp-display-${product.id}">
                   ${formatPrice(mrp)}
                 </span>
               </div>
               
               <div class="flex items-baseline gap-1.5 mt-0.5">
-                <span class="text-[11px] text-slate-400 font-semibold">DP Rate:</span>
-                <span class="text-base font-bold text-emerald-400 font-display" id="dp-display-${product.id}">
+                <span class="text-[10px] sm:text-[11px] text-slate-400 font-semibold">DP Rate:</span>
+                <span class="text-sm sm:text-base font-bold text-emerald-400 font-display" id="dp-display-${product.id}">
                   ${formatPrice(dp)}
                 </span>
-                <span class="text-[9px] text-emerald-300 font-bold bg-emerald-950/70 px-1 py-0.2 rounded border border-emerald-800/50">
+                <span class="text-[8px] sm:text-[9px] text-emerald-300 font-bold bg-emerald-950/70 px-1 py-0.2 rounded border border-emerald-800/50">
                   ${marginPercent}% Margin
                 </span>
               </div>
@@ -1626,7 +1535,7 @@ function renderProductCard(product) {
           </div>
 
           <!-- Add to Quote Button -->
-          <button onclick="addCardToCart('${product.id}')" class="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow-md shadow-sky-950/50 transition active:scale-95 cursor-pointer">
+          <button onclick="addCardToCart('${product.id}')" class="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1.5 shadow-md shadow-sky-950/50 transition active:scale-95 cursor-pointer">
             <i data-lucide="plus" class="w-3.5 h-3.5"></i>
             <span>Add to Quotation</span>
           </button>
@@ -1651,9 +1560,9 @@ window.selectCardVariant = function(productId, variantIndex) {
   buttons.forEach(btn => {
     const idx = parseInt(btn.dataset.index);
     if (idx === variantIndex) {
-      btn.className = `variant-btn-${productId} px-2 py-0.5 text-[11px] rounded-lg border transition font-medium bg-sky-500/20 text-sky-300 border-sky-500/60 shadow-sm cursor-pointer`;
+      btn.className = `variant-btn-${productId} px-2 py-0.5 text-[10px] sm:text-[11px] rounded-lg border transition font-medium bg-sky-500/20 text-sky-300 border-sky-500/60 shadow-sm cursor-pointer`;
     } else {
-      btn.className = `variant-btn-${productId} px-2 py-0.5 text-[11px] rounded-lg border transition font-medium bg-slate-950 text-slate-400 border-slate-800 hover:border-slate-700 cursor-pointer`;
+      btn.className = `variant-btn-${productId} px-2 py-0.5 text-[10px] sm:text-[11px] rounded-lg border transition font-medium bg-slate-950 text-slate-400 border-slate-800 hover:border-slate-700 cursor-pointer`;
     }
   });
 
@@ -1739,6 +1648,32 @@ function updateCartBadge() {
     badge.innerText = totalItems;
     badge.style.display = totalItems > 0 ? 'flex' : 'none';
   }
+
+  // Update Floating Mobile Bottom Bar
+  const mobileBar = document.getElementById('mobile-bottom-bar');
+  const mobileQty = document.getElementById('mobile-bar-qty');
+  const mobileTotal = document.getElementById('mobile-bar-total');
+
+  if (mobileBar && mobileQty && mobileTotal) {
+    if (totalItems > 0) {
+      let subtotal = AppState.cart.reduce((sum, item) => sum + (item.unitPrice * item.quantity), 0);
+      const tierList = (typeof WHOLESALE_TIERS !== 'undefined') ? WHOLESALE_TIERS : [];
+      let currentTier = tierList[0] || { discountPercent: 0 };
+      for (let tier of tierList) {
+        if (totalItems >= tier.minQty) currentTier = tier;
+      }
+      const discount = Math.round(subtotal * (currentTier.discountPercent / 100));
+      const finalTotal = subtotal - discount;
+
+      mobileQty.innerText = `${totalItems} Bottle${totalItems === 1 ? '' : 's'}`;
+      mobileTotal.innerText = formatPrice(finalTotal);
+      mobileBar.classList.remove('hidden');
+      mobileBar.classList.add('flex');
+    } else {
+      mobileBar.classList.add('hidden');
+      mobileBar.classList.remove('flex');
+    }
+  }
 }
 
 // Product Details Modal
@@ -1754,10 +1689,10 @@ window.openProductModal = function(productId) {
   const isDoubleLayer = product.layerType === 'double_layer' || product.hotHours > 0;
 
   modalBody.innerHTML = `
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-      <div class="bg-slate-900 rounded-xl p-6 flex flex-col items-center justify-center border border-slate-800">
-        <img src="${product.imageUrl}" alt="${product.name}" class="max-h-56 max-w-full object-contain drop-shadow-xl">
-        <span class="text-xs text-slate-500 font-mono mt-3">${product.sku}</span>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 items-center">
+      <div class="bg-slate-900 rounded-xl p-4 sm:p-6 flex flex-col items-center justify-center border border-slate-800">
+        <img src="${product.imageUrl}" alt="${product.name}" class="max-h-48 sm:max-h-56 max-w-full object-contain drop-shadow-xl">
+        <span class="text-[11px] text-slate-500 font-mono mt-2">${product.sku}</span>
       </div>
 
       <div>
@@ -1767,11 +1702,11 @@ window.openProductModal = function(productId) {
           </span>
         </div>
 
-        <h2 class="text-xl font-bold text-white font-display mb-1">${product.name}</h2>
+        <h2 class="text-lg sm:text-xl font-bold text-white font-display mb-1">${product.name}</h2>
         <p class="text-slate-300 text-xs mb-3 leading-relaxed">${product.description}</p>
 
         <!-- Technical Specs -->
-        <div class="bg-slate-900/80 rounded-xl p-3 border border-slate-800 mb-4 space-y-1.5 text-xs">
+        <div class="bg-slate-900/80 rounded-xl p-3 border border-slate-800 mb-3 space-y-1.5 text-xs">
           <div class="flex justify-between py-0.5 border-b border-slate-800">
             <span class="text-slate-400">Material Grade</span>
             <span class="text-white font-semibold">${product.steelGrade}</span>
@@ -1803,9 +1738,9 @@ window.openProductModal = function(productId) {
         <!-- Quantity & Add to Cart -->
         <div class="flex items-center gap-3">
           <div class="flex items-center bg-slate-900 border border-slate-700 rounded-xl p-1">
-            <button onclick="adjustModalQty(-1)" class="w-7 h-7 rounded-lg bg-slate-800 text-white flex items-center justify-center cursor-pointer">-</button>
+            <button onclick="adjustModalQty(-1)" class="w-8 h-8 rounded-lg bg-slate-800 text-white flex items-center justify-center font-bold text-sm cursor-pointer">-</button>
             <input type="number" id="modal-qty-input" value="${AppState.pricingMode === 'dp' ? (product.moqBulk || 25) : 1}" min="1" class="w-12 bg-transparent text-center text-white text-xs font-semibold focus:outline-none">
-            <button onclick="adjustModalQty(1)" class="w-7 h-7 rounded-lg bg-slate-800 text-white flex items-center justify-center cursor-pointer">+</button>
+            <button onclick="adjustModalQty(1)" class="w-8 h-8 rounded-lg bg-slate-800 text-white flex items-center justify-center font-bold text-sm cursor-pointer">+</button>
           </div>
 
           <button onclick="addModalProductToCart()" class="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition cursor-pointer">
@@ -1933,9 +1868,9 @@ function renderCartDrawer() {
       <div class="p-2.5 bg-sky-950/60 border border-sky-800/60 rounded-xl mb-3 text-xs flex items-center justify-between">
         <div class="flex items-center gap-1.5">
           <i data-lucide="award" class="w-4 h-4 text-sky-400"></i>
-          <span class="text-sky-200 font-semibold">${currentTier.label} (${totalUnits} Pcs)</span>
+          <span class="text-sky-200 font-semibold text-[11px] sm:text-xs">${currentTier.label} (${totalUnits} Pcs)</span>
         </div>
-        <span class="px-2 py-0.2 bg-emerald-500/20 text-emerald-300 font-bold rounded text-[10px]">${currentTier.tag}</span>
+        <span class="px-2 py-0.2 bg-emerald-500/20 text-emerald-300 font-bold rounded text-[9px] sm:text-[10px]">${currentTier.tag}</span>
       </div>
     `;
   }
@@ -1963,9 +1898,9 @@ function renderCartDrawer() {
 
         <div class="flex items-center justify-between mt-2 pt-1.5 border-t border-slate-800">
           <div class="flex items-center bg-slate-950 border border-slate-800 rounded-lg">
-            <button onclick="updateCartQuantity(${index}, ${item.quantity - 1})" class="w-5 h-5 flex items-center justify-center text-slate-400 cursor-pointer">-</button>
+            <button onclick="updateCartQuantity(${index}, ${item.quantity - 1})" class="w-6 h-6 flex items-center justify-center text-slate-400 text-sm font-bold cursor-pointer">-</button>
             <input type="number" value="${item.quantity}" onchange="updateCartQuantity(${index}, parseInt(this.value)||1)" min="1" class="w-10 bg-transparent text-center text-xs text-white font-semibold focus:outline-none">
-            <button onclick="updateCartQuantity(${index}, ${item.quantity + 1})" class="w-5 h-5 flex items-center justify-center text-slate-400 cursor-pointer">+</button>
+            <button onclick="updateCartQuantity(${index}, ${item.quantity + 1})" class="w-6 h-6 flex items-center justify-center text-slate-400 text-sm font-bold cursor-pointer">+</button>
           </div>
           <div class="text-right">
             <div class="text-xs font-bold text-white">${formatPrice(item.unitPrice * item.quantity)}</div>
@@ -2206,57 +2141,6 @@ window.downloadPdfQuotation = function() {
   }
 };
 
-// Admin / Price Manager Modal
-window.openAdminModal = function() {
-  const modal = document.getElementById('admin-modal');
-  if (!modal) return;
-  renderAdminProductsList();
-  modal.classList.remove('hidden');
-};
-
-function renderAdminProductsList() {
-  const container = document.getElementById('admin-products-list');
-  if (!container) return;
-
-  container.innerHTML = AppState.products.map((p, idx) => `
-    <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <img src="${p.imageUrl}" class="w-10 h-10 object-contain">
-        <div>
-          <h4 class="font-bold text-white text-xs">${p.name}</h4>
-          <span class="text-[10px] text-sky-400 font-mono">${p.sku}</span> • 
-          <span class="text-[10px] font-semibold ${p.layerType === 'double_layer' ? 'text-amber-400' : 'text-sky-400'}">
-            ${p.layerType === 'double_layer' ? 'Double Layer' : 'Single Layer'}
-          </span>
-        </div>
-      </div>
-      <div class="text-right text-xs">
-        <div class="text-slate-400">MRP: <span class="text-white font-bold">${formatPrice(p.variants[0].mrp || p.variants[0].price)}</span></div>
-        <div class="text-emerald-400">DP: <span class="font-bold">${formatPrice(p.variants[0].dpPrice || p.variants[0].wholesalePrice)}</span></div>
-      </div>
-    </div>
-  `).join('');
-
-  safeCreateIcons();
-}
-
-window.exportCatalogJSON = function() {
-  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(AppState.products, null, 2));
-  const downloadAnchor = document.createElement('a');
-  downloadAnchor.setAttribute("href", dataStr);
-  downloadAnchor.setAttribute("download", `Nanobot_Catalog_${Date.now()}.json`);
-  document.body.appendChild(downloadAnchor);
-  downloadAnchor.click();
-  downloadAnchor.remove();
-};
-
-window.resetToDefaultCatalog = function() {
-  AppState.products = (typeof DEFAULT_PRODUCTS !== 'undefined') ? [...DEFAULT_PRODUCTS] : [];
-  renderAdminProductsList();
-  renderProductGrid();
-  showToast('Reset to default catalog lineup.');
-};
-
 window.closeModal = function(modalId) {
   const modal = document.getElementById(modalId);
   if (modal) modal.classList.add('hidden');
@@ -2323,15 +2207,15 @@ function initEventListeners() {
   if (mrpBtn && dpBtn) {
     mrpBtn.addEventListener('click', () => {
       AppState.pricingMode = 'mrp';
-      mrpBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold transition bg-sky-500 text-white shadow-sm cursor-pointer';
-      dpBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition cursor-pointer';
+      mrpBtn.className = 'px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition bg-sky-500 text-white shadow-sm cursor-pointer';
+      dpBtn.className = 'px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition cursor-pointer';
       renderProductGrid();
     });
 
     dpBtn.addEventListener('click', () => {
       AppState.pricingMode = 'dp';
-      dpBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-600 text-white shadow-sm cursor-pointer';
-      mrpBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition cursor-pointer';
+      dpBtn.className = 'px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-600 text-white shadow-sm cursor-pointer';
+      mrpBtn.className = 'px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition cursor-pointer';
       renderProductGrid();
     });
   }
