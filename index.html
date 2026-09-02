@@ -33,8 +33,206 @@
   <!-- jsPDF for Instant PDF Quotation Generation -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-  <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="css/styles.css">
+  <!-- Self-Contained Styles -->
+  <style>
+/* Nanobot Custom Metallic & Modern Styling */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+
+:root {
+  --steel-50: #f8fafc;
+  --steel-100: #f1f5f9;
+  --steel-200: #e2e8f0;
+  --steel-300: #cbd5e1;
+  --steel-400: #94a3b8;
+  --steel-500: #64748b;
+  --steel-600: #475569;
+  --steel-700: #334155;
+  --steel-800: #1e293b;
+  --steel-900: #0f172a;
+  --steel-950: #020617;
+  
+  --nano-accent: #0284c7;
+  --nano-accent-glow: rgba(2, 132, 199, 0.25);
+  --nano-emerald: #10b981;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: #0b0f19;
+  color: #e2e8f0;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .font-display {
+  font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Glassmorphism & Metallic Effects */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.65) 0%, rgba(15, 23, 42, 0.85) 100%);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 35px -10px rgba(2, 132, 199, 0.2);
+}
+
+.metallic-gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.metallic-cyan-gradient {
+  background: linear-gradient(135deg, #38bdf8 0%, #0284c7 50%, #0369a1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.steel-sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.steel-sheen::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.08) 30%,
+    rgba(255, 255, 255, 0.18) 35%,
+    transparent 45%
+  );
+  transform: rotate(25deg);
+  pointer-events: none;
+  animation: sheen-flow 7s infinite ease-in-out;
+}
+
+@keyframes sheen-flow {
+  0% { transform: translate(-100%, -100%) rotate(25deg); }
+  35%, 100% { transform: translate(100%, 100%) rotate(25deg); }
+}
+
+/* Bottle Render Animations */
+.bottle-mockup-wrapper {
+  transition: transform 0.4s ease;
+  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.5));
+}
+
+.bottle-mockup-wrapper:hover {
+  transform: scale(1.04) rotate(-1.5deg);
+}
+
+/* Glow rings */
+.glow-cyan {
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.25);
+}
+
+.glow-emerald {
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.25);
+}
+
+/* Custom Checkbox & Radio */
+.custom-radio:checked {
+  border-color: #0284c7;
+  background-color: #0284c7;
+}
+
+/* Toast Notifications */
+.toast-slide-in {
+  animation: slideInUp 0.3s ease forwards;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Modal Transitions */
+.modal-backdrop {
+  background: rgba(4, 7, 18, 0.85);
+  backdrop-filter: blur(8px);
+}
+
+/* Badge Pulse */
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.05); }
+}
+
+.pulse-badge {
+  animation: pulse-subtle 3s infinite ease-in-out;
+}
+
+/* Tab active indicator */
+.tab-active {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #ffffff !important;
+  box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
+}
+
+/* Customizer Bottle Canvas */
+#customizer-canvas-container {
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Print Optimization */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
+
+  </style>
 </head>
 <body class="bg-[#0b0f19] text-slate-100 min-h-screen flex flex-col selection:bg-sky-500 selection:text-white font-sans">
 
@@ -69,22 +267,22 @@
         
         <!-- Pricing Mode Switcher (DP vs MRP) -->
         <div class="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800">
-          <button id="btn-mode-dp" class="px-3 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-600 text-white shadow-sm flex items-center gap-1">
+          <button id="btn-mode-dp" class="px-3 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-600 text-white shadow-sm flex items-center gap-1 cursor-pointer">
             <span>DP Price</span>
             <span class="text-[9px] px-1 bg-emerald-950 text-emerald-300 rounded font-mono">Wholesale</span>
           </button>
-          <button id="btn-mode-mrp" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">
+          <button id="btn-mode-mrp" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition cursor-pointer">
             MRP (Retail)
           </button>
         </div>
 
         <!-- Admin Catalog Button -->
-        <button onclick="openAdminModal()" class="hidden sm:flex px-2.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800 transition text-xs items-center gap-1" title="Catalog Manager">
+        <button onclick="openAdminModal()" class="hidden sm:flex px-2.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800 transition text-xs items-center gap-1 cursor-pointer" title="Catalog Manager">
           <i data-lucide="settings" class="w-4 h-4"></i>
         </button>
 
         <!-- Quotation Cart Button -->
-        <button onclick="openCartDrawer()" class="relative py-2 px-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-xs font-bold flex items-center gap-1.5 shadow-md shadow-sky-950 transition active:scale-95">
+        <button onclick="openCartDrawer()" class="relative py-2 px-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-xs font-bold flex items-center gap-1.5 shadow-md shadow-sky-950 transition active:scale-95 cursor-pointer">
           <i data-lucide="shopping-bag" class="w-4 h-4"></i>
           <span>Quotation</span>
           <span id="cart-badge-count" class="w-5 h-5 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center" style="display: none;">0</span>
@@ -96,7 +294,7 @@
   </header>
 
   <!-- Hero & Simple Bottle Finder Section -->
-  <section class="relative pt-8 pb-12 overflow-hidden border-b border-slate-800/80">
+  <section class="relative pt-8 pb-10 overflow-hidden border-b border-slate-800/80">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       
       <!-- Headline -->
@@ -125,14 +323,14 @@
             <span>1. Select Category / Layer:</span>
           </div>
           <div class="flex flex-wrap items-center gap-2" id="layer-filter-buttons">
-            <button onclick="setFilterLayer('all')" data-layer="all" class="filter-layer-btn px-4 py-2 rounded-xl text-xs font-bold transition bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-950/60 flex items-center gap-1.5">
-              <span>✨ All Bottles (15)</span>
+            <button onclick="setFilterLayer('all')" data-layer="all" class="filter-layer-btn px-4 py-2 rounded-xl text-xs font-bold transition bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-950/60 flex items-center gap-1.5 cursor-pointer">
+              <span>✨ All Bottles (26)</span>
             </button>
-            <button onclick="setFilterLayer('double_layer')" data-layer="double_layer" class="filter-layer-btn px-4 py-2 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800 transition flex items-center gap-1.5">
+            <button onclick="setFilterLayer('double_layer')" data-layer="double_layer" class="filter-layer-btn px-4 py-2 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800 transition flex items-center gap-1.5 cursor-pointer">
               <i data-lucide="flame" class="w-3.5 h-3.5 text-amber-400"></i>
               <span>Double Layer Vacuum (24h Cold / 18h Hot)</span>
             </button>
-            <button onclick="setFilterLayer('single_layer')" data-layer="single_layer" class="filter-layer-btn px-4 py-2 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800 transition flex items-center gap-1.5">
+            <button onclick="setFilterLayer('single_layer')" data-layer="single_layer" class="filter-layer-btn px-4 py-2 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800 transition flex items-center gap-1.5 cursor-pointer">
               <i data-lucide="snowflake" class="w-3.5 h-3.5 text-sky-400"></i>
               <span>Single Layer (Fast Fridge Chilling)</span>
             </button>
@@ -146,22 +344,22 @@
             <span>2. Filter by Capacity Size:</span>
           </div>
           <div class="flex flex-wrap items-center gap-2" id="capacity-filter-buttons">
-            <button onclick="setFilterCapacity('all')" data-cap="all" class="filter-cap-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition bg-sky-500/20 text-sky-300 border border-sky-500/60 shadow-sm">
+            <button onclick="setFilterCapacity('all')" data-cap="all" class="filter-cap-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition bg-sky-500/20 text-sky-300 border border-sky-500/60 shadow-sm cursor-pointer">
               All Sizes
             </button>
-            <button onclick="setFilterCapacity('compact')" data-cap="compact" class="filter-cap-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition">
+            <button onclick="setFilterCapacity('compact')" data-cap="compact" class="filter-cap-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
               Compact & Kids (300 - 460 ml)
             </button>
-            <button onclick="setFilterCapacity('500')" data-cap="500" class="filter-cap-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition">
+            <button onclick="setFilterCapacity('500')" data-cap="500" class="filter-cap-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
               500 ml (Office / School)
             </button>
-            <button onclick="setFilterCapacity('750')" data-cap="750" class="filter-cap-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition">
+            <button onclick="setFilterCapacity('750')" data-cap="750" class="filter-cap-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
               750 ml (Standard Gym)
             </button>
-            <button onclick="setFilterCapacity('1000')" data-cap="1000" class="filter-cap-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition">
+            <button onclick="setFilterCapacity('1000')" data-cap="1000" class="filter-cap-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
               1000 ml (1 Litre Full Day)
             </button>
-            <button onclick="setFilterCapacity('large')" data-cap="large" class="filter-cap-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition">
+            <button onclick="setFilterCapacity('large')" data-cap="large" class="filter-cap-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
               1.2L - 1.8L (Expedition & Kettl)
             </button>
           </div>
@@ -178,22 +376,22 @@
           </div>
           
           <div class="flex flex-wrap items-center gap-2 mb-3" id="price-filter-buttons">
-            <button onclick="setFilterPrice('all')" data-price="all" class="filter-price-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition bg-emerald-500/20 text-emerald-300 border border-emerald-500/60 shadow-sm">
+            <button onclick="setFilterPrice('all')" data-price="all" class="filter-price-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition bg-emerald-500/20 text-emerald-300 border border-emerald-500/60 shadow-sm cursor-pointer">
               All Budgets
             </button>
-            <button onclick="setFilterPrice('under_300')" data-price="under_300" class="filter-price-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition">
+            <button onclick="setFilterPrice('under_300')" data-price="under_300" class="filter-price-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
               Under ₹300
             </button>
-            <button onclick="setFilterPrice('300_500')" data-price="300_500" class="filter-price-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition">
+            <button onclick="setFilterPrice('300_500')" data-price="300_500" class="filter-price-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
               ₹300 - ₹500
             </button>
-            <button onclick="setFilterPrice('500_800')" data-price="500_800" class="filter-price-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition">
+            <button onclick="setFilterPrice('500_800')" data-price="500_800" class="filter-price-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
               ₹500 - ₹800
             </button>
-            <button onclick="setFilterPrice('800_1200')" data-price="800_1200" class="filter-price-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition">
+            <button onclick="setFilterPrice('800_1200')" data-price="800_1200" class="filter-price-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
               ₹800 - ₹1,200
             </button>
-            <button onclick="setFilterPrice('above_1200')" data-price="above_1200" class="filter-price-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition">
+            <button onclick="setFilterPrice('above_1200')" data-price="above_1200" class="filter-price-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer">
               Above ₹1,200 (Combos & Carafes)
             </button>
           </div>
@@ -217,7 +415,7 @@
 
           <!-- Sort Select -->
           <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
-            <select id="sort-select" onchange="handleSortChange(this.value)" class="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-sky-500">
+            <select id="sort-select" onchange="handleSortChange(this.value)" class="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-sky-500 cursor-pointer">
               <option value="featured">Sort: Featured Bestsellers</option>
               <option value="price_asc">Price: Low to High</option>
               <option value="price_desc">Price: High to Low</option>
@@ -226,8 +424,8 @@
 
             <!-- Results Counter & Reset -->
             <div class="flex items-center gap-2">
-              <span class="text-xs text-slate-400 font-mono font-semibold" id="products-count">15 Models</span>
-              <button onclick="resetFilters()" class="text-xs text-sky-400 hover:text-sky-300 underline font-medium ml-1">Reset</button>
+              <span class="text-xs text-slate-400 font-mono font-semibold" id="products-count">26 Models</span>
+              <button onclick="resetFilters()" class="text-xs text-sky-400 hover:text-sky-300 underline font-medium ml-1 cursor-pointer">Reset</button>
             </div>
           </div>
 
@@ -244,7 +442,7 @@
       
       <!-- Dynamic Products Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="products-grid">
-        <!-- Rendered dynamically by js/app.js -->
+        <!-- Rendered dynamically -->
       </div>
 
     </div>
@@ -280,7 +478,7 @@
           <!-- Select Model -->
           <div>
             <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Select Bottle Model:</label>
-            <select id="customizer-model-select" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500">
+            <select id="customizer-model-select" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500 cursor-pointer">
               <!-- Rendered dynamically -->
             </select>
           </div>
@@ -311,7 +509,7 @@
           </div>
 
           <!-- Add Customizer to Quote Button -->
-          <button onclick="addCustomizerToCart()" class="w-full py-3 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-sky-950 transition active:scale-95">
+          <button onclick="addCustomizerToCart()" class="w-full py-3 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-sky-950 transition active:scale-95 cursor-pointer">
             <i data-lucide="check-circle" class="w-4 h-4"></i>
             <span>Add Custom Engraved Bottle to Quote</span>
           </button>
@@ -367,41 +565,28 @@
     </div>
   </footer>
 
-  <!-- ========================================== -->
-  <!-- MODALS & DRAWERS -->
-  <!-- ========================================== -->
-
   <!-- Slide-out Quotation Drawer -->
   <div id="cart-drawer" class="fixed inset-y-0 right-0 w-full max-w-md bg-slate-950 border-l border-slate-800 z-50 transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
-    
-    <!-- Drawer Header -->
     <div class="p-4 border-b border-slate-800 flex items-center justify-between">
       <div class="flex items-center gap-2">
         <i data-lucide="shopping-bag" class="w-5 h-5 text-sky-400"></i>
         <h3 class="font-bold text-white text-base">Your Quotation List</h3>
       </div>
-      <button onclick="closeCartDrawer()" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition">
+      <button onclick="closeCartDrawer()" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
     </div>
 
-    <!-- Tier Info Banner -->
     <div id="cart-tier-info" class="px-4 pt-3"></div>
 
-    <!-- Items List -->
-    <div class="flex-1 overflow-y-auto p-4 space-y-3" id="cart-items-container">
-      <!-- Rendered dynamically -->
-    </div>
+    <div class="flex-1 overflow-y-auto p-4 space-y-3" id="cart-items-container"></div>
 
-    <!-- Client Info Inputs & Summary -->
     <div class="p-4 border-t border-slate-800 bg-slate-900/60 space-y-3">
-      
       <div class="grid grid-cols-2 gap-2 text-xs">
         <input type="text" id="client-name" placeholder="Your Name" class="bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white placeholder:text-slate-500 focus:outline-none focus:border-sky-500">
         <input type="text" id="client-company" placeholder="Company / City" class="bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white placeholder:text-slate-500 focus:outline-none focus:border-sky-500">
       </div>
 
-      <!-- Financial Totals -->
       <div class="space-y-1.5 text-xs">
         <div class="flex justify-between text-slate-400">
           <span>Subtotal:</span>
@@ -417,35 +602,30 @@
         </div>
       </div>
 
-      <!-- Action Buttons: WhatsApp & PDF -->
       <div class="grid grid-cols-2 gap-2 pt-1">
-        <button onclick="generateWhatsAppOrder()" class="py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-md shadow-emerald-950">
+        <button onclick="generateWhatsAppOrder()" class="py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-md shadow-emerald-950 cursor-pointer">
           <i data-lucide="message-circle" class="w-4 h-4"></i>
           <span>Send WhatsApp</span>
         </button>
-        <button onclick="downloadPdfQuotation()" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-sky-400 border border-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 transition">
+        <button onclick="downloadPdfQuotation()" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-sky-400 border border-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer">
           <i data-lucide="file-text" class="w-4 h-4"></i>
           <span>Download PDF</span>
         </button>
       </div>
-
     </div>
-
   </div>
 
   <!-- Product Details Modal -->
   <div id="product-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
     <div class="bg-slate-950 border border-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative p-6 shadow-2xl">
-      <button onclick="closeModal('product-modal')" class="absolute top-4 right-4 p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
+      <button onclick="closeModal('product-modal')" class="absolute top-4 right-4 p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
-      <div id="product-modal-body">
-        <!-- Rendered dynamically -->
-      </div>
+      <div id="product-modal-body"></div>
     </div>
   </div>
 
-  <!-- Admin / Catalog Manager Modal -->
+  <!-- Admin Modal -->
   <div id="admin-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
     <div class="bg-slate-950 border border-slate-800 rounded-2xl max-w-3xl w-full max-h-[85vh] overflow-y-auto relative p-6 shadow-2xl">
       <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-800">
@@ -453,25 +633,21 @@
           <i data-lucide="settings" class="w-5 h-5 text-sky-400"></i>
           <h3 class="text-lg font-bold text-white">Catalog & Price Manager</h3>
         </div>
-        <button onclick="closeModal('admin-modal')" class="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
+        <button onclick="closeModal('admin-modal')" class="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
-      <!-- Quick Action Buttons -->
       <div class="flex items-center gap-2 mb-4">
-        <button onclick="exportCatalogJSON()" class="px-3 py-1.5 bg-slate-900 border border-slate-800 hover:bg-slate-800 text-sky-400 rounded-lg text-xs font-semibold flex items-center gap-1.5">
+        <button onclick="exportCatalogJSON()" class="px-3 py-1.5 bg-slate-900 border border-slate-800 hover:bg-slate-800 text-sky-400 rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer">
           <i data-lucide="download" class="w-3.5 h-3.5"></i> Export JSON
         </button>
-        <button onclick="resetToDefaultCatalog()" class="px-3 py-1.5 bg-slate-900 border border-slate-800 hover:bg-slate-800 text-red-400 rounded-lg text-xs font-semibold flex items-center gap-1.5">
+        <button onclick="resetToDefaultCatalog()" class="px-3 py-1.5 bg-slate-900 border border-slate-800 hover:bg-slate-800 text-red-400 rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer">
           <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Reset to Factory
         </button>
       </div>
 
-      <!-- Products List with editable prices -->
-      <div class="space-y-3" id="admin-products-list">
-        <!-- Rendered dynamically -->
-      </div>
+      <div class="space-y-3" id="admin-products-list"></div>
     </div>
   </div>
 
@@ -483,8 +659,1869 @@
     </div>
   </div>
 
-  <!-- Scripts -->
-  <script src="js/products.js"></script>
-  <script src="js/app.js"></script>
+  <!-- Self-Contained JavaScript Data & Logic -->
+  <script>
+/**
+ * Nanobot Official Product Catalog Data
+ * Extracted directly from official Nanobot July 2026 Price List & Catalogues
+ */
+
+const DEFAULT_PRODUCTS = [
+  // ==========================================
+  // DOUBLE LAYER (VACUUM INSULATED FLASKS - 18% GST)
+  // ==========================================
+  {
+    id: "nb-dl-therma",
+    sku: "NB-DL-TH01",
+    name: "Nanobot Therma Vacuum Flask",
+    layerType: "double_layer",
+    category: "vacuum",
+    tagline: "SUS 304 Double Wall Vacuum Flask (24h Cold / 18h Hot)",
+    description: "Engineered with true vacuum double-wall insulation and copper reflective shield. Keeps cold 24h or hot 18h with zero outer condensation.",
+    steelGrade: "SUS 304 Food Grade (18/8)",
+    insulation: "Double Layer Vacuum + Copper Coating",
+    hotHours: 18,
+    coldHours: 24,
+    lidType: "Precision Leakproof SS Cap",
+    imageUrl: "images/products/nb-dl-therma.png",
+    isBestseller: true,
+    variants: [
+      { capacity: "350 ml", mrp: 719, dpPrice: 360, price: 719, wholesalePrice: 360 },
+      { capacity: "500 ml", mrp: 809, dpPrice: 405, price: 809, wholesalePrice: 405 },
+      { capacity: "750 ml", mrp: 1079, dpPrice: 540, price: 1079, wholesalePrice: 540 },
+      { capacity: "1000 ml", mrp: 1199, dpPrice: 600, price: 1199, wholesalePrice: 600 }
+    ],
+    colors: [
+      { name: "Plain Steel", hex: "#cbd5e1" },
+      { name: "Matte Black", hex: "#1a1a1a" },
+      { name: "Royal Blue", hex: "#1e3a8a" },
+      { name: "Sky Cyan", hex: "#0284c7" }
+    ],
+    moqBulk: 25
+  },
+  {
+    id: "nb-dl-thermax",
+    sku: "NB-DL-TH02",
+    name: "Nanobot Thermax Color Series",
+    layerType: "double_layer",
+    category: "vacuum",
+    tagline: "Vibrant Premium Matte Color Double Wall Vacuum Flask",
+    description: "Thermax offers durable scratch-resistant powder-coated color finishes with all-day temperature retention.",
+    steelGrade: "SUS 304 Food Safe",
+    insulation: "Double Layer Vacuum",
+    hotHours: 18,
+    coldHours: 24,
+    lidType: "Threaded SS Cap with Silicone Gasket",
+    imageUrl: "images/products/nb-dl-thermax.png",
+    isBestseller: true,
+    variants: [
+      { capacity: "350 ml", mrp: 799, dpPrice: 400, price: 799, wholesalePrice: 400 },
+      { capacity: "500 ml", mrp: 889, dpPrice: 445, price: 889, wholesalePrice: 445 },
+      { capacity: "750 ml", mrp: 1169, dpPrice: 585, price: 1169, wholesalePrice: 585 },
+      { capacity: "1000 ml", mrp: 1289, dpPrice: 645, price: 1289, wholesalePrice: 645 }
+    ],
+    colors: [
+      { name: "Matte Black", hex: "#18181b" },
+      { name: "Lavender", hex: "#c084fc" },
+      { name: "Raspberry Pink", hex: "#f43f5e" },
+      { name: "Military Olive", hex: "#3f4f34" }
+    ],
+    moqBulk: 25
+  },
+  {
+    id: "nb-dl-kryo",
+    sku: "NB-DL-KR03",
+    name: "Nanobot Kryo Double Layer Flask",
+    layerType: "double_layer",
+    category: "vacuum",
+    tagline: "Heavy-Duty High Capacity Expedition Flask (Up to 1.8 Litres)",
+    description: "Extended capacity double wall vacuum bottle for road trips, corporate desks, and all-day hydration.",
+    steelGrade: "SUS 304 Heavy Gauge",
+    insulation: "Deep Vacuum Insulated",
+    hotHours: 24,
+    coldHours: 36,
+    lidType: "Insulated Stopper Lid with Drinking Cup",
+    imageUrl: "images/products/nb-dl-kryo.png",
+    isBestseller: true,
+    variants: [
+      { capacity: "350 ml", mrp: 699, dpPrice: 350, price: 699, wholesalePrice: 350 },
+      { capacity: "500 ml", mrp: 839, dpPrice: 420, price: 839, wholesalePrice: 420 },
+      { capacity: "750 ml", mrp: 1039, dpPrice: 520, price: 1039, wholesalePrice: 520 },
+      { capacity: "1000 ml", mrp: 1249, dpPrice: 625, price: 1249, wholesalePrice: 625 },
+      { capacity: "1500 ml", mrp: 1899, dpPrice: 950, price: 1899, wholesalePrice: 950 },
+      { capacity: "1800 ml", mrp: 1999, dpPrice: 1000, price: 1999, wholesalePrice: 1000 }
+    ],
+    colors: [
+      { name: "Brushed Steel", hex: "#cbd5e1" },
+      { name: "Midnight Black", hex: "#1e293b" }
+    ],
+    moqBulk: 20
+  },
+  {
+    id: "nb-dl-doro",
+    sku: "NB-DL-DO04",
+    name: "Nanobot Doro Vacuum Bottle",
+    layerType: "double_layer",
+    category: "vacuum",
+    tagline: "Ergonomic Modern Double Wall Hydration Bottle",
+    description: "Minimalist silhouette with rolled lip for smooth sipping and long-lasting hot & cold thermal retention.",
+    steelGrade: "SUS 304 Food Safe",
+    insulation: "Double Layer Vacuum",
+    hotHours: 18,
+    coldHours: 24,
+    lidType: "Hermetic SS Screw Cap",
+    imageUrl: "images/products/nb-dl-doro.png",
+    isBestseller: false,
+    variants: [
+      { capacity: "500 ml", mrp: 799, dpPrice: 399, price: 799, wholesalePrice: 399 },
+      { capacity: "750 ml", mrp: 939, dpPrice: 469, price: 939, wholesalePrice: 469 },
+      { capacity: "1000 ml", mrp: 1099, dpPrice: 550, price: 1099, wholesalePrice: 550 }
+    ],
+    colors: [
+      { name: "Satin Plain Steel", hex: "#d1d5db" },
+      { name: "Onyx Black", hex: "#111827" },
+      { name: "Rose Gold", hex: "#be7c72" }
+    ],
+    moqBulk: 25
+  },
+  {
+    id: "nb-dl-vepo",
+    sku: "NB-DL-VG05",
+    name: "Nanobot Vepo Go Slim & Falcon",
+    layerType: "double_layer",
+    category: "vacuum",
+    tagline: "Ultra-Slim Double Wall Vacuum Flask for Backpacks & Handbags",
+    description: "Compact, space-saving vacuum bottle that fits easily into slim briefcases, handbag pockets, and car holders.",
+    steelGrade: "SUS 304 Food Grade",
+    insulation: "Slim Vacuum Insulated",
+    hotHours: 14,
+    coldHours: 20,
+    lidType: "Compact Twist Stopper Cap",
+    imageUrl: "images/products/nb-dl-vepo.png",
+    isBestseller: false,
+    variants: [
+      { capacity: "500 ml", mrp: 699, dpPrice: 350, price: 699, wholesalePrice: 350 },
+      { capacity: "700 ml", mrp: 799, dpPrice: 400, price: 799, wholesalePrice: 400 }
+    ],
+    colors: [
+      { name: "Brushed Steel", hex: "#cbd5e1" },
+      { name: "Matte Black", hex: "#18181b" },
+      { name: "Cyan", hex: "#06b6d4" }
+    ],
+    moqBulk: 25
+  },
+  {
+    id: "nb-dl-rover-hiker",
+    sku: "NB-DL-RH06",
+    name: "Nanobot Rover & Hiker Sports Flask",
+    layerType: "double_layer",
+    category: "sports",
+    tagline: "Active Trekking & Gym Vacuum Flask with Ergonomic Carry Loop",
+    description: "Rugged double wall vacuum sports bottle featuring durable loop cap for easy carabiner clip and gym carrying.",
+    steelGrade: "SUS 304 High Impact",
+    insulation: "Double Layer Vacuum",
+    hotHours: 14,
+    coldHours: 24,
+    lidType: "Sports Carry Loop Handle Cap",
+    imageUrl: "images/products/nb-dl-rover.png",
+    isBestseller: true,
+    variants: [
+      { capacity: "500 ml", mrp: 749, dpPrice: 375, price: 749, wholesalePrice: 375 },
+      { capacity: "750 ml", mrp: 799, dpPrice: 400, price: 799, wholesalePrice: 400 }
+    ],
+    colors: [
+      { name: "Stealth Black", hex: "#18181b" },
+      { name: "Army Olive", hex: "#3f4f34" },
+      { name: "Brushed Steel", hex: "#cbd5e1" }
+    ],
+    moqBulk: 25
+  },
+  {
+    id: "nb-dl-mince",
+    sku: "NB-DL-MN07",
+    name: "Nanobot Mince Pocket Vacuum Flask",
+    layerType: "double_layer",
+    category: "vacuum",
+    tagline: "Ultra-Portable 220ml - 400ml Pocket Thermal Flask",
+    description: "Miniature vacuum flask designed for espresso, warm milk, herbal infusions, and compact daily travel.",
+    steelGrade: "SUS 304 Food Safe",
+    insulation: "Double Layer Vacuum",
+    hotHours: 12,
+    coldHours: 18,
+    lidType: "Leakproof Threaded Cap",
+    imageUrl: "images/products/nb-dl-mince.png",
+    isBestseller: false,
+    variants: [
+      { capacity: "220 ml", mrp: 529, dpPrice: 265, price: 529, wholesalePrice: 265 },
+      { capacity: "400 ml", mrp: 699, dpPrice: 350, price: 699, wholesalePrice: 350 }
+    ],
+    colors: [
+      { name: "Brushed Steel", hex: "#cbd5e1" },
+      { name: "Matte Black", hex: "#18181b" }
+    ],
+    moqBulk: 30
+  },
+  {
+    id: "nb-dl-orion-gruss",
+    sku: "NB-DL-OG08",
+    name: "Nanobot Orion, Gruss & Crater",
+    layerType: "double_layer",
+    category: "vacuum",
+    tagline: "Executive Textured Vacuum Flask Series",
+    description: "Premium tactile powder-coated finish with ergonomic grip geometry for boardroom desks and executive gifting.",
+    steelGrade: "SUS 304 Food Safe",
+    insulation: "Double Layer Vacuum",
+    hotHours: 18,
+    coldHours: 24,
+    lidType: "Precision Insulated Cap",
+    imageUrl: "images/products/nb-dl-orion.png",
+    isBestseller: false,
+    variants: [
+      { capacity: "500 ml", mrp: 949, dpPrice: 475, price: 949, wholesalePrice: 475 },
+      { capacity: "700 ml", mrp: 1149, dpPrice: 575, price: 1149, wholesalePrice: 575 }
+    ],
+    colors: [
+      { name: "Midnight Black", hex: "#18181b" },
+      { name: "Cobalt Blue", hex: "#1d4ed8" }
+    ],
+    moqBulk: 25
+  },
+  {
+    id: "nb-dl-aura-univa",
+    sku: "NB-DL-AU09",
+    name: "Nanobot Aura & Univa Vacuum Bottle",
+    layerType: "double_layer",
+    category: "vacuum",
+    tagline: "Minimalist Modern Double Wall Office Flask",
+    description: "Clean cylindrical vacuum bottle for daily hydration, office tea/coffee, and fresh water.",
+    steelGrade: "SUS 304 Food Safe",
+    insulation: "Double Layer Vacuum",
+    hotHours: 14,
+    coldHours: 20,
+    lidType: "Threaded Stainless Steel Cap",
+    imageUrl: "images/products/nb-dl-aura.png",
+    isBestseller: false,
+    variants: [
+      { capacity: "350 ml (Univa)", mrp: 569, dpPrice: 285, price: 569, wholesalePrice: 285 },
+      { capacity: "400 ml (Aura)", mrp: 899, dpPrice: 450, price: 899, wholesalePrice: 450 },
+      { capacity: "460 ml (Univa)", mrp: 739, dpPrice: 370, price: 739, wholesalePrice: 370 },
+      { capacity: "700 ml (Aura)", mrp: 1099, dpPrice: 550, price: 1099, wholesalePrice: 550 }
+    ],
+    colors: [
+      { name: "Brushed Steel", hex: "#cbd5e1" },
+      { name: "Matte Black", hex: "#18181b" }
+    ],
+    moqBulk: 25
+  },
+  {
+    id: "nb-dl-kettl-carafe",
+    sku: "NB-DL-KT10",
+    name: "Nanobot Kettl Tabletop Thermal Carafe",
+    layerType: "double_layer",
+    category: "vacuum",
+    tagline: "Executive Boardroom & Tabletop Double Wall Thermal Pot",
+    description: "Double wall vacuum dispenser carafe with push-lever spout for coffee, tea, conference rooms, and hospitality.",
+    steelGrade: "SUS 304 Interior & Exterior",
+    insulation: "Thermal Double Wall Carafe",
+    hotHours: 24,
+    coldHours: 36,
+    lidType: "Thumb-Press Spout Stopper",
+    imageUrl: "images/products/nb-dl-kettl.png",
+    isBestseller: true,
+    variants: [
+      { capacity: "350 ml", mrp: 899, dpPrice: 450, price: 899, wholesalePrice: 450 },
+      { capacity: "500 ml", mrp: 1049, dpPrice: 525, price: 1049, wholesalePrice: 525 },
+      { capacity: "750 ml", mrp: 1149, dpPrice: 575, price: 1149, wholesalePrice: 575 },
+      { capacity: "1000 ml", mrp: 1249, dpPrice: 625, price: 1249, wholesalePrice: 625 },
+      { capacity: "1500 ml", mrp: 1499, dpPrice: 750, price: 1499, wholesalePrice: 750 }
+    ],
+    colors: [
+      { name: "Brushed Satin Steel", hex: "#cbd5e1" },
+      { name: "Matte Black", hex: "#18181b" },
+      { name: "Ruby Maroon", hex: "#881337" }
+    ],
+    moqBulk: 15
+  },
+  {
+    id: "nb-dl-combos",
+    sku: "NB-DL-CB11",
+    name: "Nanobot Therma & Kettl Gift Combo Sets",
+    layerType: "double_layer",
+    category: "vacuum",
+    tagline: "Luxury Corporate Gifting Vacuum Flask + Double Wall SS Cups Sets",
+    description: "Executive gift packaging including 1 vacuum bottle with 2, 3, or 4 double-walled stainless steel cups.",
+    steelGrade: "SUS 304 Food Safe",
+    insulation: "Double Layer Vacuum",
+    hotHours: 18,
+    coldHours: 24,
+    lidType: "Insulated Stopper Cap",
+    imageUrl: "images/products/nb-dl-combos.png",
+    isBestseller: true,
+    variants: [
+      { capacity: "Therma Duo (Flask + 2 Cups)", mrp: 1049, dpPrice: 525, price: 1049, wholesalePrice: 525 },
+      { capacity: "Therma Trio (Flask + 3 Cups)", mrp: 1299, dpPrice: 649, price: 1299, wholesalePrice: 649 },
+      { capacity: "Therma Quattro (Flask + 4 Cups)", mrp: 1599, dpPrice: 799, price: 1599, wholesalePrice: 799 },
+      { capacity: "Kettl Trio (Kettl + 3 Cups)", mrp: 1449, dpPrice: 725, price: 1449, wholesalePrice: 725 },
+      { capacity: "Kettl Quattro (Kettl + 4 Cups)", mrp: 1649, dpPrice: 825, price: 1649, wholesalePrice: 825 }
+    ],
+    colors: [
+      { name: "Corporate Black", hex: "#1a1a1a" },
+      { name: "Brushed Steel", hex: "#cbd5e1" }
+    ],
+    moqBulk: 10
+  },
+  {
+    id: "nb-dl-lunch-therma",
+    sku: "NB-DL-LT12",
+    name: "Nanobot Lunch Therma & Tiffin Sets",
+    layerType: "double_layer",
+    category: "vacuum",
+    tagline: "Vacuum Insulated Stainless Steel Tiffin Meals & Bento Sets",
+    description: "Double wall vacuum insulated food jars that keep curries, rice, and meals piping hot for lunchtime.",
+    steelGrade: "SUS 304 Food Grade",
+    insulation: "Double Layer Food Jar",
+    hotHours: 12,
+    coldHours: 12,
+    lidType: "Airtight Silicone Sealed Lid",
+    imageUrl: "images/products/nb-dl-lunch.png",
+    isBestseller: false,
+    variants: [
+      { capacity: "220 ml Solo", mrp: 699, dpPrice: 350, price: 699, wholesalePrice: 350 },
+      { capacity: "330 ml Solo", mrp: 749, dpPrice: 375, price: 749, wholesalePrice: 375 },
+      { capacity: "470 ml Solo", mrp: 849, dpPrice: 425, price: 849, wholesalePrice: 425 },
+      { capacity: "Duo Set (2x Tiffins + Bag)", mrp: 1799, dpPrice: 900, price: 1799, wholesalePrice: 900 }
+    ],
+    colors: [
+      { name: "Brushed Steel", hex: "#cbd5e1" },
+      { name: "Matte Black", hex: "#18181b" }
+    ],
+    moqBulk: 15
+  },
+
+  // ==========================================
+  // SINGLE LAYER (STAINLESS STEEL FRIDGE BOTTLES - 5% GST)
+  // ==========================================
+  {
+    id: "nb-sl-doro",
+    sku: "NB-SL-DF01",
+    name: "Nanobot Doro Single Layer Fridge Bottle",
+    layerType: "single_layer",
+    category: "fridge",
+    tagline: "SUS 304 Rapid Refrigerator Chilling Steel Bottle",
+    description: "The hygienic, unbreakable replacement for plastic bottles. Made from virgin 304 steel for fast cooling in fridge doors.",
+    steelGrade: "SUS 304 Virgin Food Safe (18/8)",
+    insulation: "Single Layer (Rapid Fridge Chill)",
+    hotHours: 0,
+    coldHours: 0,
+    lidType: "Leakproof Threaded Cap with Silicone Gasket",
+    imageUrl: "images/products/nb-sl-doro.png",
+    isBestseller: true,
+    variants: [
+      { capacity: "750 ml", mrp: 359, dpPrice: 162, price: 359, wholesalePrice: 162 },
+      { capacity: "1000 ml", mrp: 399, dpPrice: 180, price: 399, wholesalePrice: 180 }
+    ],
+    colors: [
+      { name: "Plain Gloss Steel", hex: "#e5e7eb" },
+      { name: "Brushed Steel", hex: "#cbd5e1" },
+      { name: "Matte Black", hex: "#18181b" }
+    ],
+    moqBulk: 50
+  },
+  {
+    id: "nb-sl-nero",
+    sku: "NB-SL-JN02",
+    name: "Nanobot Jr. Nero Kids & School Bottle",
+    layerType: "single_layer",
+    category: "kids",
+    tagline: "Featherlight SUS 304 Steel Bottle for School & Kids",
+    description: "Lightweight, child-safe single wall stainless steel water bottle with smooth sipping rim.",
+    steelGrade: "SUS 304 Food Safe",
+    insulation: "Single Layer",
+    hotHours: 0,
+    coldHours: 0,
+    lidType: "Easy-Grip Cap with Carry Loop",
+    imageUrl: "images/products/nb-sl-nero.png",
+    isBestseller: true,
+    variants: [
+      { capacity: "400 ml", mrp: 299, dpPrice: 135, price: 299, wholesalePrice: 135 },
+      { capacity: "600 ml", mrp: 329, dpPrice: 148, price: 329, wholesalePrice: 148 }
+    ],
+    colors: [
+      { name: "Gloss Steel", hex: "#e2e8f0" },
+      { name: "Matte Black", hex: "#18181b" },
+      { name: "Sky Cyan", hex: "#0284c7" }
+    ],
+    moqBulk: 50
+  },
+  {
+    id: "nb-sl-twist-energex",
+    sku: "NB-SL-TE03",
+    name: "Nanobot Twist & Energex Gym Bottle",
+    layerType: "single_layer",
+    category: "sports",
+    tagline: "High-Capacity 800ml - 900ml Sports & Workout Bottle",
+    description: "Ergonomic textured grip body engineered for sports hydration, gym workouts, and outdoor cycling.",
+    steelGrade: "SUS 304 Food Safe",
+    insulation: "Single Layer",
+    hotHours: 0,
+    coldHours: 0,
+    lidType: "Sports Cap with Silicone Seal",
+    imageUrl: "images/products/nb-sl-twist.png",
+    isBestseller: false,
+    variants: [
+      { capacity: "800 ml (Energex)", mrp: 749, dpPrice: 337, price: 749, wholesalePrice: 337 },
+      { capacity: "900 ml (Twist)", mrp: 559, dpPrice: 252, price: 559, wholesalePrice: 252 }
+    ],
+    colors: [
+      { name: "Matte Black", hex: "#18181b" },
+      { name: "Brushed Steel", hex: "#cbd5e1" }
+    ],
+    moqBulk: 40
+  },
+  {
+    id: "nb-sl-vyoma",
+    sku: "NB-SL-VY04",
+    name: "Nanobot Vyoma Fridge Bottle",
+    layerType: "single_layer",
+    category: "fridge",
+    tagline: "Sleek Cylindrical Single Layer Dining & Refrigerator Bottle",
+    description: "Classic dining table bottle fitting snugly into all refrigerator door racks for quick cold water.",
+    steelGrade: "SUS 304 Virgin Steel",
+    insulation: "Single Layer",
+    hotHours: 0,
+    coldHours: 0,
+    lidType: "Stainless Steel Cap",
+    imageUrl: "images/products/nb-sl-vyoma.png",
+    isBestseller: true,
+    variants: [
+      { capacity: "750 ml", mrp: 369, dpPrice: 166, price: 369, wholesalePrice: 166 },
+      { capacity: "1000 ml", mrp: 419, dpPrice: 189, price: 419, wholesalePrice: 189 }
+    ],
+    colors: [
+      { name: "Mirror Steel", hex: "#cbd5e1" },
+      { name: "Matte Black", hex: "#111827" }
+    ],
+    moqBulk: 50
+  },
+  {
+    id: "nb-sl-pico",
+    sku: "NB-SL-PC05",
+    name: "Nanobot Pico Compact Bottle",
+    layerType: "single_layer",
+    category: "fridge",
+    tagline: "400ml Handbag & Compact Pocket Single Layer Bottle",
+    description: "Ultra-compact single wall steel bottle that slips into lunch bags, kids packs, and purses.",
+    steelGrade: "SUS 304 Food Safe",
+    insulation: "Single Layer",
+    hotHours: 0,
+    coldHours: 0,
+    lidType: "Leakproof Threaded Cap",
+    imageUrl: "images/products/nb-sl-pico.png",
+    isBestseller: false,
+    variants: [
+      { capacity: "400 ml", mrp: 319, dpPrice: 144, price: 319, wholesalePrice: 144 }
+    ],
+    colors: [
+      { name: "Gloss Steel", hex: "#cbd5e1" },
+      { name: "Matte Black", hex: "#18181b" }
+    ],
+    moqBulk: 50
+  },
+  {
+    id: "nb-sl-agua-ace",
+    sku: "NB-SL-AA06",
+    name: "Nanobot Agua, Ace & Whizzy",
+    layerType: "single_layer",
+    category: "fridge",
+    tagline: "Popular 750ml - 1000ml Single Layer Fridge Bottles",
+    description: "All-time popular fridge door bottle collection with threaded leakproof stainless steel tops.",
+    steelGrade: "SUS 304 Food Grade",
+    insulation: "Single Layer",
+    hotHours: 0,
+    coldHours: 0,
+    lidType: "Precision SS Threaded Cap",
+    imageUrl: "images/products/nb-sl-agua.png",
+    isBestseller: true,
+    variants: [
+      { capacity: "750 ml (Ace)", mrp: 399, dpPrice: 180, price: 399, wholesalePrice: 180 },
+      { capacity: "750 ml (Agua)", mrp: 389, dpPrice: 175, price: 389, wholesalePrice: 175 },
+      { capacity: "750 ml (Whizzy)", mrp: 429, dpPrice: 193, price: 429, wholesalePrice: 193 },
+      { capacity: "1000 ml (Agua)", mrp: 399, dpPrice: 180, price: 399, wholesalePrice: 180 }
+    ],
+    colors: [
+      { name: "Brushed Steel", hex: "#cbd5e1" },
+      { name: "Matte Black", hex: "#18181b" }
+    ],
+    moqBulk: 50
+  },
+  {
+    id: "nb-sl-thar-diamond",
+    sku: "NB-SL-TD07",
+    name: "Nanobot Thar & Thar Diamond",
+    layerType: "single_layer",
+    category: "fridge",
+    tagline: "Geometric Faceted Textured Single Layer Steel Bottle",
+    description: "Faceted diamond-grip design providing modern aesthetics and slip-resistant handling.",
+    steelGrade: "SUS 304 High-Tensile Steel",
+    insulation: "Single Layer",
+    hotHours: 0,
+    coldHours: 0,
+    lidType: "Diamond Texture SS Cap",
+    imageUrl: "images/products/nb-sl-thar.png",
+    isBestseller: false,
+    variants: [
+      { capacity: "750 ml", mrp: 469, dpPrice: 211, price: 469, wholesalePrice: 211 },
+      { capacity: "1000 ml", mrp: 549, dpPrice: 247, price: 549, wholesalePrice: 247 }
+    ],
+    colors: [
+      { name: "Diamond Satin Steel", hex: "#cbd5e1" },
+      { name: "Matte Jet Black", hex: "#18181b" }
+    ],
+    moqBulk: 40
+  },
+  {
+    id: "nb-sl-akua",
+    sku: "NB-SL-AK08",
+    name: "Nanobot Akua Ultra Slim Bottle",
+    layerType: "single_layer",
+    category: "fridge",
+    tagline: "Ultra-Slim 500ml - 700ml Single Layer Fridge Bottle",
+    description: "Slim profile design engineered for compact fridge door pockets and lightweight carrying.",
+    steelGrade: "SUS 304 Food Safe",
+    insulation: "Single Layer",
+    hotHours: 0,
+    coldHours: 0,
+    lidType: "Leakproof Threaded Cap",
+    imageUrl: "images/products/nb-sl-akua.png",
+    isBestseller: false,
+    variants: [
+      { capacity: "500 ml", mrp: 279, dpPrice: 126, price: 279, wholesalePrice: 126 },
+      { capacity: "700 ml", mrp: 309, dpPrice: 139, price: 309, wholesalePrice: 139 }
+    ],
+    colors: [
+      { name: "Brushed Steel", hex: "#cbd5e1" },
+      { name: "Matte Black", hex: "#18181b" }
+    ],
+    moqBulk: 50
+  },
+  {
+    id: "nb-sl-mizu-neer",
+    sku: "NB-SL-MN09",
+    name: "Nanobot Mizu & Neer Series",
+    layerType: "single_layer",
+    category: "fridge",
+    tagline: "700ml - 800ml Ultra Slim Fridge Bottle",
+    description: "Streamlined single wall steel bottle with leakproof seal for daily home and office drinking water.",
+    steelGrade: "SUS 304 Food Grade",
+    insulation: "Single Layer",
+    hotHours: 0,
+    coldHours: 0,
+    lidType: "Hermetic SS Cap",
+    imageUrl: "images/products/nb-sl-neer.png",
+    isBestseller: false,
+    variants: [
+      { capacity: "700 ml", mrp: 309, dpPrice: 139, price: 309, wholesalePrice: 139 },
+      { capacity: "800 ml", mrp: 349, dpPrice: 157, price: 349, wholesalePrice: 157 }
+    ],
+    colors: [
+      { name: "Brushed Steel", hex: "#cbd5e1" },
+      { name: "Midnight Black", hex: "#18181b" }
+    ],
+    moqBulk: 50
+  },
+  {
+    id: "nb-sl-sleek",
+    sku: "NB-SL-SK10",
+    name: "Nanobot Sleek Ultra-Slim Bottle",
+    layerType: "single_layer",
+    category: "fridge",
+    tagline: "Compact 300ml - 500ml Single Layer Pocket Steel Bottle",
+    description: "Lightweight and narrow body designed for kids backpacks, purses, and quick sips.",
+    steelGrade: "SUS 304 Food Safe",
+    insulation: "Single Layer",
+    hotHours: 0,
+    coldHours: 0,
+    lidType: "SS Cap with Ring",
+    imageUrl: "images/products/nb-sl-sleek.png",
+    isBestseller: false,
+    variants: [
+      { capacity: "300 ml", mrp: 259, dpPrice: 117, price: 259, wholesalePrice: 117 },
+      { capacity: "500 ml", mrp: 289, dpPrice: 130, price: 289, wholesalePrice: 130 }
+    ],
+    colors: [
+      { name: "Gloss Steel", hex: "#e2e8f0" },
+      { name: "Matte Black", hex: "#18181b" }
+    ],
+    moqBulk: 50
+  },
+  {
+    id: "nb-sl-sip-mist",
+    sku: "NB-SL-SM11",
+    name: "Nanobot Sip & Mist Sports Bottle",
+    layerType: "single_layer",
+    category: "sports",
+    tagline: "Dual Function Sports Bottle with Refreshing Mist Sprayer",
+    description: "Combines a drinking spout and built-in fine mist sprayer to cool down during sports, cycling, and workouts.",
+    steelGrade: "SUS 304 Food Safe",
+    insulation: "Single Layer",
+    hotHours: 0,
+    coldHours: 0,
+    lidType: "Sip & Mist Dual Trigger Mechanism",
+    imageUrl: "images/products/nb-sl-sip-mist.png",
+    isBestseller: true,
+    variants: [
+      { capacity: "750 ml", mrp: 578, dpPrice: 260, price: 578, wholesalePrice: 260 },
+      { capacity: "1000 ml", mrp: 638, dpPrice: 287, price: 638, wholesalePrice: 287 }
+    ],
+    colors: [
+      { name: "Cobalt Blue", hex: "#1d4ed8" },
+      { name: "Matte Black", hex: "#18181b" },
+      { name: "Silver Gloss", hex: "#cbd5e1" }
+    ],
+    moqBulk: 30
+  },
+  {
+    id: "nb-sl-prisma-neo",
+    sku: "NB-SL-PN12",
+    name: "Nanobot Prisma & Neo Fridge Bottle",
+    layerType: "single_layer",
+    category: "fridge",
+    tagline: "Textured Multi-Faceted Prism Steel Bottle",
+    description: "Contemporary prism facet styling reflecting light with rapid refrigerator chilling performance.",
+    steelGrade: "SUS 304 Food Grade",
+    insulation: "Single Layer",
+    hotHours: 0,
+    coldHours: 0,
+    lidType: "Leakproof SS Cap",
+    imageUrl: "images/products/nb-sl-prisma.png",
+    isBestseller: false,
+    variants: [
+      { capacity: "750 ml", mrp: 399, dpPrice: 180, price: 399, wholesalePrice: 180 },
+      { capacity: "1000 ml", mrp: 489, dpPrice: 220, price: 489, wholesalePrice: 220 }
+    ],
+    colors: [
+      { name: "Brushed Steel", hex: "#cbd5e1" },
+      { name: "Matte Charcoal", hex: "#27272a" }
+    ],
+    moqBulk: 40
+  },
+  {
+    id: "nb-sl-oil-dispenser",
+    sku: "NB-SL-OD13",
+    name: "Nanobot SS Oil Dispenser",
+    layerType: "single_layer",
+    category: "fridge",
+    tagline: "1100ml Pure SUS 304 Kitchen Oil & Liquid Dispenser",
+    description: "Food-grade stainless steel kitchen liquid dispenser with non-drip spout for cooking oils and vinegar.",
+    steelGrade: "SUS 304 Kitchen Grade",
+    insulation: "Single Layer",
+    hotHours: 0,
+    coldHours: 0,
+    lidType: "Drip-Free Pour Spout Cap",
+    imageUrl: "images/products/nb-sl-oil.png",
+    isBestseller: false,
+    variants: [
+      { capacity: "1100 ml", mrp: 549, dpPrice: 247, price: 549, wholesalePrice: 247 }
+    ],
+    colors: [
+      { name: "Gloss Plain Steel", hex: "#cbd5e1" }
+    ],
+    moqBulk: 30
+  },
+  {
+    id: "nb-sl-eco-sets",
+    sku: "NB-SL-ES14",
+    name: "Nanobot Eco Drink Sets (Mizu / Nero)",
+    layerType: "single_layer",
+    category: "fridge",
+    tagline: "Multi-Pack Stainless Steel Refrigerator Bottle Sets",
+    description: "Value bundle packs of 2 or 3 stainless steel bottles for whole families and dining tables.",
+    steelGrade: "SUS 304 Food Safe",
+    insulation: "Single Layer",
+    hotHours: 0,
+    coldHours: 0,
+    lidType: "Leakproof SS Caps",
+    imageUrl: "images/products/nb-sl-eco-sets.png",
+    isBestseller: true,
+    variants: [
+      { capacity: "Mizu Eco Set (700 ml)", mrp: 549, dpPrice: 247, price: 549, wholesalePrice: 247 },
+      { capacity: "Nero Eco Set (1000 ml)", mrp: 849, dpPrice: 382, price: 849, wholesalePrice: 382 }
+    ],
+    colors: [
+      { name: "Steel Bundle", hex: "#cbd5e1" },
+      { name: "Black Bundle", hex: "#18181b" }
+    ],
+    moqBulk: 20
+  }
+];
+
+// Wholesale Volume Discount Tiers Configuration
+const WHOLESALE_TIERS = [
+  { minQty: 1, maxQty: 9, label: "Retail Tier (MRP)", discountPercent: 0, tag: "MRP Rate" },
+  { minQty: 10, maxQty: 49, label: "Dealer Base Tier (DP Rate)", discountPercent: 0, tag: "Dealer Price (DP)" },
+  { minQty: 50, maxQty: 199, label: "Corporate Bulk Tier", discountPercent: 10, tag: "10% Extra on DP" },
+  { minQty: 200, maxQty: 499, label: "Super Stockist Tier", discountPercent: 15, tag: "15% Extra on DP" },
+  { minQty: 500, maxQty: 999999, label: "Factory Direct OEM/ODM", discountPercent: 22, tag: "Best Factory Rate" }
+];
+
+const BRANDING_OPTIONS = [
+  { id: "none", name: "Plain / Nanobot Factory Finish", pricePerUnit: 0, moq: 1, desc: "Standard unbranded or Nanobot signature logo" },
+  { id: "laser", name: "Precision Fiber Laser Engraving", pricePerUnit: 25, moq: 10, desc: "Permanent crisp metallic silver mark, never fades" },
+  { id: "uv_print", name: "Full Color UV Digital Print", pricePerUnit: 45, moq: 25, desc: "High-resolution full color photo & gradient printing" },
+  { id: "screen_print", name: "Single/Dual Color Screen Print", pricePerUnit: 20, moq: 50, desc: "Cost-effective vibrant solid color printing for large runs" }
+];
+
+  </script>
+  <script>
+/**
+ * Nanobot Catalog & Order Portal Application Logic
+ * Supports: Real PDF Photos, Double Layer vs Single Layer, MRP vs DP Wholesale, Capacity & Price Filtering
+ */
+
+// Application State
+const AppState = {
+  products: (typeof DEFAULT_PRODUCTS !== 'undefined') ? [...DEFAULT_PRODUCTS] : [],
+  cart: [],
+  activeLayerFilter: 'all', // 'all', 'double_layer', 'single_layer'
+  selectedCapacityRange: 'all', // 'all', 'compact', '500', '750', '1000', 'large'
+  selectedPriceRange: 'all', // 'all', 'under_300', '300_500', '500_800', '800_1200', 'above_1200'
+  maxPriceLimit: 2500,
+  searchQuery: '',
+  sortBy: 'featured',
+  pricingMode: 'dp', // 'dp' (Dealer Price) or 'mrp' (Retail Price)
+  currency: 'INR',
+  exchangeRate: 0.012,
+  selectedProductForModal: null,
+  whatsappNumber: '919876543210',
+  customizer: {
+    productId: 'nb-dl-therma',
+    colorHex: '#1a1a1a',
+    colorName: 'Matte Black',
+    engravingText: 'YOUR BRAND HERE',
+    brandingOptionId: 'laser'
+  }
+};
+
+// Safe icon renderer
+function safeCreateIcons() {
+  try {
+    if (window.lucide && typeof window.lucide.createIcons === 'function') {
+      window.lucide.createIcons();
+    }
+  } catch (err) {
+    console.warn('Lucide icon rendering skipped:', err);
+  }
+}
+
+// Currency Formatter
+function formatPrice(amountInINR) {
+  if (AppState.currency === 'USD') {
+    const usd = (amountInINR * AppState.exchangeRate).toFixed(2);
+    return `$${usd}`;
+  }
+  return `₹${amountInINR.toLocaleString('en-IN')}`;
+}
+
+// Helper: Extract numeric capacity in ml
+function getCapacityNumber(capStr) {
+  if (!capStr) return 500;
+  const match = capStr.match(/(\d+)\s*ml/i);
+  if (match) return parseInt(match[1]);
+  if (capStr.includes('1.8') || capStr.includes('1800')) return 1800;
+  if (capStr.includes('1.5') || capStr.includes('1500')) return 1500;
+  if (capStr.includes('1.2') || capStr.includes('1200')) return 1200;
+  if (capStr.includes('1 Litre') || capStr.includes('1000')) return 1000;
+  return 500;
+}
+
+// Helper: Check if product matches capacity filter
+function matchesCapacity(product, range) {
+  if (range === 'all') return true;
+
+  return product.variants.some(v => {
+    const cap = getCapacityNumber(v.capacity);
+    if (range === 'compact') return cap <= 460;
+    if (range === '500') return cap >= 470 && cap <= 600;
+    if (range === '750') return cap >= 650 && cap <= 850;
+    if (range === '1000') return cap >= 900 && cap <= 1100;
+    if (range === 'large') return cap >= 1200;
+    return true;
+  });
+}
+
+// Helper: Check if product matches price filter
+function matchesPrice(product, priceRange) {
+  const isDp = AppState.pricingMode === 'dp';
+  
+  return product.variants.some(v => {
+    const price = isDp ? (v.dpPrice || v.wholesalePrice) : (v.mrp || v.price);
+    
+    if (priceRange === 'under_300') return price < 300;
+    if (priceRange === '300_500') return price >= 300 && price <= 500;
+    if (priceRange === '500_800') return price > 500 && price <= 800;
+    if (priceRange === '800_1200') return price > 800 && price <= 1200;
+    if (priceRange === 'above_1200') return price > 1200;
+    
+    return price <= AppState.maxPriceLimit;
+  });
+}
+
+// Filter Control Handlers (Global)
+window.setFilterLayer = function(layer) {
+  AppState.activeLayerFilter = layer;
+  updateFilterButtonsUI();
+  renderProductGrid();
+};
+
+window.setFilterCapacity = function(range) {
+  AppState.selectedCapacityRange = range;
+  updateFilterButtonsUI();
+  renderProductGrid();
+};
+
+window.setFilterPrice = function(range) {
+  AppState.selectedPriceRange = range;
+  updateFilterButtonsUI();
+  renderProductGrid();
+};
+
+window.handlePriceSliderChange = function(val) {
+  AppState.maxPriceLimit = parseInt(val);
+  AppState.selectedPriceRange = 'all';
+  const display = document.getElementById('price-slider-display');
+  if (display) display.innerText = `Up to ${formatPrice(AppState.maxPriceLimit)}`;
+  updateFilterButtonsUI();
+  renderProductGrid();
+};
+
+window.handleSortChange = function(sortVal) {
+  AppState.sortBy = sortVal;
+  renderProductGrid();
+};
+
+window.resetFilters = function() {
+  AppState.activeLayerFilter = 'all';
+  AppState.selectedCapacityRange = 'all';
+  AppState.selectedPriceRange = 'all';
+  AppState.maxPriceLimit = 2500;
+  AppState.searchQuery = '';
+  AppState.sortBy = 'featured';
+
+  const searchInput = document.getElementById('search-input');
+  if (searchInput) searchInput.value = '';
+  const priceSlider = document.getElementById('price-range-slider');
+  if (priceSlider) priceSlider.value = 2500;
+  const sliderDisplay = document.getElementById('price-slider-display');
+  if (sliderDisplay) sliderDisplay.innerText = `Up to ₹2,500`;
+  const sortSelect = document.getElementById('sort-select');
+  if (sortSelect) sortSelect.value = 'featured';
+
+  updateFilterButtonsUI();
+  renderProductGrid();
+  showToast('Filters reset to show all models.');
+};
+
+function updateFilterButtonsUI() {
+  // Layer buttons
+  document.querySelectorAll('.filter-layer-btn').forEach(btn => {
+    const val = btn.dataset.layer;
+    if (val === AppState.activeLayerFilter) {
+      btn.className = 'filter-layer-btn px-4 py-2 rounded-xl text-xs font-bold transition bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-950/60 flex items-center gap-1.5 cursor-pointer';
+    } else {
+      btn.className = 'filter-layer-btn px-4 py-2 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800 transition flex items-center gap-1.5 cursor-pointer';
+    }
+  });
+
+  // Capacity buttons
+  document.querySelectorAll('.filter-cap-btn').forEach(btn => {
+    const val = btn.dataset.cap;
+    if (val === AppState.selectedCapacityRange) {
+      btn.className = 'filter-cap-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition bg-sky-500/20 text-sky-300 border border-sky-500/60 shadow-sm cursor-pointer';
+    } else {
+      btn.className = 'filter-cap-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer';
+    }
+  });
+
+  // Price buttons
+  document.querySelectorAll('.filter-price-btn').forEach(btn => {
+    const val = btn.dataset.price;
+    if (val === AppState.selectedPriceRange) {
+      btn.className = 'filter-price-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition bg-emerald-500/20 text-emerald-300 border border-emerald-500/60 shadow-sm cursor-pointer';
+    } else {
+      btn.className = 'filter-price-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800/80 transition cursor-pointer';
+    }
+  });
+}
+
+// Render Products Grid
+function renderProductGrid() {
+  const container = document.getElementById('products-grid');
+  const countLabel = document.getElementById('products-count');
+  if (!container) return;
+
+  const isDp = AppState.pricingMode === 'dp';
+
+  let filtered = AppState.products.filter(p => {
+    // 1. Layer Match
+    if (AppState.activeLayerFilter !== 'all' && p.layerType !== AppState.activeLayerFilter) {
+      return false;
+    }
+
+    // 2. Capacity Match
+    if (!matchesCapacity(p, AppState.selectedCapacityRange)) {
+      return false;
+    }
+
+    // 3. Price Match
+    if (!matchesPrice(p, AppState.selectedPriceRange)) {
+      return false;
+    }
+
+    // 4. Search Query Match
+    if (AppState.searchQuery) {
+      const q = AppState.searchQuery.toLowerCase();
+      const matchName = p.name.toLowerCase().includes(q);
+      const matchSku = p.sku.toLowerCase().includes(q);
+      const matchDesc = p.description.toLowerCase().includes(q);
+      if (!matchName && !matchSku && !matchDesc) return false;
+    }
+
+    return true;
+  });
+
+  // Sorting
+  if (AppState.sortBy === 'price_asc') {
+    filtered.sort((a, b) => {
+      const pa = isDp ? (a.variants[0].dpPrice || a.variants[0].wholesalePrice) : (a.variants[0].mrp || a.variants[0].price);
+      const pb = isDp ? (b.variants[0].dpPrice || b.variants[0].wholesalePrice) : (b.variants[0].mrp || b.variants[0].price);
+      return pa - pb;
+    });
+  } else if (AppState.sortBy === 'price_desc') {
+    filtered.sort((a, b) => {
+      const pa = isDp ? (a.variants[0].dpPrice || a.variants[0].wholesalePrice) : (a.variants[0].mrp || a.variants[0].price);
+      const pb = isDp ? (b.variants[0].dpPrice || b.variants[0].wholesalePrice) : (b.variants[0].mrp || b.variants[0].price);
+      return pb - pa;
+    });
+  } else if (AppState.sortBy === 'capacity_asc') {
+    filtered.sort((a, b) => getCapacityNumber(a.variants[0].capacity) - getCapacityNumber(b.variants[0].capacity));
+  }
+
+  if (countLabel) {
+    countLabel.innerText = `${filtered.length} Model${filtered.length === 1 ? '' : 's'} Found`;
+  }
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div class="col-span-full py-16 text-center text-slate-500">
+        <i data-lucide="filter-x" class="w-12 h-12 mx-auto mb-3 text-slate-600"></i>
+        <h3 class="text-lg font-bold text-slate-300 mb-1">No bottles match your filters</h3>
+        <p class="text-xs text-slate-400">Try selecting "All Sizes" or "All Budgets".</p>
+        <button onclick="resetFilters()" class="mt-4 px-4 py-2 bg-sky-600 text-white rounded-xl text-xs font-bold hover:bg-sky-500 transition cursor-pointer">
+          Reset Filters
+        </button>
+      </div>
+    `;
+    safeCreateIcons();
+    return;
+  }
+
+  container.innerHTML = filtered.map(product => renderProductCard(product)).join('');
+  safeCreateIcons();
+}
+
+function renderProductCard(product) {
+  const isDpMode = AppState.pricingMode === 'dp';
+  const defaultVariant = product.variants[0];
+  const mrp = defaultVariant.mrp || defaultVariant.price;
+  const dp = defaultVariant.dpPrice || defaultVariant.wholesalePrice;
+  const marginPercent = Math.round(((mrp - dp) / mrp) * 100);
+
+  const isDoubleLayer = product.layerType === 'double_layer' || product.hotHours > 0;
+
+  return `
+    <div class="glass-card rounded-2xl overflow-hidden flex flex-col group border border-slate-800/80 hover:border-sky-500/40 relative bg-slate-900/60" id="card-${product.id}">
+      
+      <!-- Badges -->
+      <div class="absolute top-3 left-3 z-10 flex flex-col gap-1 items-start pointer-events-none">
+        <span class="px-2.5 py-0.5 ${isDoubleLayer ? 'bg-amber-500/20 text-amber-300 border-amber-500/40' : 'bg-sky-500/20 text-sky-300 border-sky-500/40'} border rounded-full text-[10px] font-bold flex items-center gap-1 backdrop-blur-md">
+          <i data-lucide="${isDoubleLayer ? 'flame' : 'snowflake'}" class="w-3 h-3"></i>
+          <span>${isDoubleLayer ? 'Double Layer (Vacuum)' : 'Single Layer (Fridge)'}</span>
+        </span>
+      </div>
+
+      <!-- Bottle Visual Stage -->
+      <div class="p-4 bg-gradient-to-b from-slate-950/60 to-slate-900/40 flex items-center justify-center relative cursor-pointer min-h-[220px]" onclick="openProductModal('${product.id}')">
+        <div class="w-full h-48 relative flex items-center justify-center">
+          <img src="${product.imageUrl}" alt="${product.name}" class="max-h-44 max-w-full object-contain drop-shadow-xl hover:scale-105 transition duration-300" onerror="this.src='images/products/nb-dl-therma.png'">
+        </div>
+        <div class="absolute bottom-1 right-3 text-[10px] text-slate-500 font-mono">${product.sku}</div>
+      </div>
+
+      <!-- Details Body -->
+      <div class="p-4 flex-1 flex flex-col justify-between">
+        <div>
+          <h3 class="font-bold text-white text-sm leading-snug hover:text-sky-400 cursor-pointer transition mb-1" onclick="openProductModal('${product.id}')">
+            ${product.name}
+          </h3>
+          <p class="text-[11px] text-slate-400 mb-2.5 line-clamp-1">${product.tagline}</p>
+
+          <!-- Capacity Size Chips -->
+          <div class="mb-3">
+            <div class="text-[10px] text-slate-400 uppercase font-semibold tracking-wider mb-1">Capacities:</div>
+            <div class="flex flex-wrap gap-1" id="variants-${product.id}">
+              ${product.variants.map((v, idx) => `
+                <button type="button" 
+                        onclick="selectCardVariant('${product.id}', ${idx})" 
+                        class="variant-btn-${product.id} px-2 py-0.5 text-[11px] rounded-lg border transition font-medium cursor-pointer ${
+                          idx === 0 
+                            ? 'bg-sky-500/20 text-sky-300 border-sky-500/60 shadow-sm' 
+                            : 'bg-slate-950 text-slate-400 border-slate-800 hover:border-slate-700'
+                        }"
+                        data-index="${idx}">
+                  ${v.capacity}
+                </button>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+
+        <!-- Pricing (MRP & DP Price) & Action Bar -->
+        <div class="pt-2.5 border-t border-slate-800/80">
+          <div class="flex items-end justify-between mb-2.5">
+            <div>
+              <div class="flex items-center gap-1.5 text-[11px]">
+                <span class="text-slate-400">MRP:</span>
+                <span class="font-bold text-slate-300 ${isDpMode ? 'line-through' : 'text-sky-400 font-display text-sm'}" id="mrp-display-${product.id}">
+                  ${formatPrice(mrp)}
+                </span>
+              </div>
+              
+              <div class="flex items-baseline gap-1.5 mt-0.5">
+                <span class="text-[11px] text-slate-400 font-semibold">DP Rate:</span>
+                <span class="text-base font-bold text-emerald-400 font-display" id="dp-display-${product.id}">
+                  ${formatPrice(dp)}
+                </span>
+                <span class="text-[9px] text-emerald-300 font-bold bg-emerald-950/70 px-1 py-0.2 rounded border border-emerald-800/50">
+                  ${marginPercent}% Margin
+                </span>
+              </div>
+            </div>
+            
+            <button onclick="openProductCustomizer('${product.id}')" title="Test Laser Engraving" class="p-1.5 rounded-lg bg-slate-800 text-sky-400 hover:bg-sky-950 hover:text-sky-300 border border-slate-700 transition cursor-pointer">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+          <!-- Add to Quote Button -->
+          <button onclick="addCardToCart('${product.id}')" class="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow-md shadow-sky-950/50 transition active:scale-95 cursor-pointer">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+            <span>Add to Quotation</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  `;
+}
+
+// Card Variant Selection
+const CardSelections = {};
+
+window.selectCardVariant = function(productId, variantIndex) {
+  if (!CardSelections[productId]) CardSelections[productId] = { variantIndex: 0 };
+  CardSelections[productId].variantIndex = variantIndex;
+
+  const product = AppState.products.find(p => p.id === productId);
+  if (!product) return;
+
+  const buttons = document.querySelectorAll(`.variant-btn-${productId}`);
+  buttons.forEach(btn => {
+    const idx = parseInt(btn.dataset.index);
+    if (idx === variantIndex) {
+      btn.className = `variant-btn-${productId} px-2 py-0.5 text-[11px] rounded-lg border transition font-medium bg-sky-500/20 text-sky-300 border-sky-500/60 shadow-sm cursor-pointer`;
+    } else {
+      btn.className = `variant-btn-${productId} px-2 py-0.5 text-[11px] rounded-lg border transition font-medium bg-slate-950 text-slate-400 border-slate-800 hover:border-slate-700 cursor-pointer`;
+    }
+  });
+
+  const variant = product.variants[variantIndex];
+  const mrpEl = document.getElementById(`mrp-display-${productId}`);
+  const dpEl = document.getElementById(`dp-display-${productId}`);
+  
+  if (mrpEl) mrpEl.innerText = formatPrice(variant.mrp || variant.price);
+  if (dpEl) dpEl.innerText = formatPrice(variant.dpPrice || variant.wholesalePrice);
+};
+
+window.addCardToCart = function(productId) {
+  const product = AppState.products.find(p => p.id === productId);
+  if (!product) return;
+
+  const selection = CardSelections[productId] || { variantIndex: 0 };
+  const variant = product.variants[selection.variantIndex] || product.variants[0];
+
+  const defaultQty = AppState.pricingMode === 'dp' ? (product.moqBulk || 25) : 1;
+  const unitPrice = AppState.pricingMode === 'dp' ? (variant.dpPrice || variant.wholesalePrice) : (variant.mrp || variant.price);
+
+  addToCart({
+    productId: product.id,
+    productName: product.name,
+    sku: product.sku,
+    layerType: product.layerType,
+    capacity: variant.capacity,
+    mrp: variant.mrp || variant.price,
+    dpPrice: variant.dpPrice || variant.wholesalePrice,
+    colorName: "Plain / Factory Finish",
+    colorHex: "#cbd5e1",
+    brandingId: 'none',
+    customText: '',
+    quantity: defaultQty,
+    unitPrice: unitPrice,
+    imageUrl: product.imageUrl
+  });
+
+  showToast(`Added ${product.name} (${variant.capacity}) to quotation!`);
+};
+
+// Cart System
+function addToCart(item) {
+  const existingIndex = AppState.cart.findIndex(i => 
+    i.productId === item.productId &&
+    i.capacity === item.capacity &&
+    i.customText === item.customText
+  );
+
+  if (existingIndex > -1) {
+    AppState.cart[existingIndex].quantity += item.quantity;
+  } else {
+    AppState.cart.push(item);
+  }
+
+  saveCartToStorage();
+}
+
+window.updateCartQuantity = function(index, newQty) {
+  if (newQty <= 0) {
+    AppState.cart.splice(index, 1);
+  } else {
+    AppState.cart[index].quantity = newQty;
+  }
+  saveCartToStorage();
+  renderCartDrawer();
+};
+
+window.removeCartItem = function(index) {
+  AppState.cart.splice(index, 1);
+  saveCartToStorage();
+  renderCartDrawer();
+};
+
+function saveCartToStorage() {
+  try {
+    localStorage.setItem('nanobot_cart', JSON.stringify(AppState.cart));
+  } catch(e) {}
+  updateCartBadge();
+}
+
+function updateCartBadge() {
+  const badge = document.getElementById('cart-badge-count');
+  const totalItems = AppState.cart.reduce((sum, item) => sum + item.quantity, 0);
+  if (badge) {
+    badge.innerText = totalItems;
+    badge.style.display = totalItems > 0 ? 'flex' : 'none';
+  }
+}
+
+// Product Details Modal
+window.openProductModal = function(productId) {
+  const product = AppState.products.find(p => p.id === productId);
+  if (!product) return;
+
+  AppState.selectedProductForModal = product;
+  const modal = document.getElementById('product-modal');
+  const modalBody = document.getElementById('product-modal-body');
+  if (!modal || !modalBody) return;
+
+  const isDoubleLayer = product.layerType === 'double_layer' || product.hotHours > 0;
+
+  modalBody.innerHTML = `
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+      <div class="bg-slate-900 rounded-xl p-6 flex flex-col items-center justify-center border border-slate-800">
+        <img src="${product.imageUrl}" alt="${product.name}" class="max-h-56 max-w-full object-contain drop-shadow-xl" onerror="this.src='images/products/nb-dl-therma.png'">
+        <span class="text-xs text-slate-500 font-mono mt-3">${product.sku}</span>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-2 mb-1.5">
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded ${isDoubleLayer ? 'bg-amber-950 text-amber-300 border border-amber-800/40' : 'bg-blue-950 text-blue-300 border border-blue-800/40'}">
+            ${isDoubleLayer ? 'Double Layer Vacuum (24h Cold / 18h Hot)' : 'Single Layer (Fridge Bottle)'}
+          </span>
+        </div>
+
+        <h2 class="text-xl font-bold text-white font-display mb-1">${product.name}</h2>
+        <p class="text-slate-300 text-xs mb-3 leading-relaxed">${product.description}</p>
+
+        <!-- Technical Specs -->
+        <div class="bg-slate-900/80 rounded-xl p-3 border border-slate-800 mb-4 space-y-1.5 text-xs">
+          <div class="flex justify-between py-0.5 border-b border-slate-800">
+            <span class="text-slate-400">Material Grade</span>
+            <span class="text-white font-semibold">${product.steelGrade}</span>
+          </div>
+          <div class="flex justify-between py-0.5 border-b border-slate-800">
+            <span class="text-slate-400">Lid Mechanism</span>
+            <span class="text-white font-semibold">${product.lidType}</span>
+          </div>
+          <div class="flex justify-between py-0.5">
+            <span class="text-slate-400">Recommended MOQ</span>
+            <span class="text-white font-semibold">${product.moqBulk || 25} pcs (DP Wholesale)</span>
+          </div>
+        </div>
+
+        <!-- Capacity Variant Buttons -->
+        <div class="mb-4">
+          <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Select Size Variant:</label>
+          <div class="grid grid-cols-2 gap-2" id="modal-variant-options">
+            ${product.variants.map((v, idx) => `
+              <button onclick="updateModalVariant(${idx})" class="p-2 rounded-xl border text-left transition cursor-pointer ${idx === 0 ? 'bg-sky-500/20 border-sky-500 text-white' : 'bg-slate-900 border-slate-800 text-slate-300'} modal-var-btn" data-vindex="${idx}">
+                <div class="font-bold text-xs">${v.capacity}</div>
+                <div class="text-[10px] text-slate-400">MRP: ${formatPrice(v.mrp || v.price)}</div>
+                <div class="text-xs text-emerald-400 font-semibold">DP: ${formatPrice(v.dpPrice || v.wholesalePrice)}</div>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- Quantity & Add to Cart -->
+        <div class="flex items-center gap-3">
+          <div class="flex items-center bg-slate-900 border border-slate-700 rounded-xl p-1">
+            <button onclick="adjustModalQty(-1)" class="w-7 h-7 rounded-lg bg-slate-800 text-white flex items-center justify-center cursor-pointer">-</button>
+            <input type="number" id="modal-qty-input" value="${AppState.pricingMode === 'dp' ? (product.moqBulk || 25) : 1}" min="1" class="w-12 bg-transparent text-center text-white text-xs font-semibold focus:outline-none">
+            <button onclick="adjustModalQty(1)" class="w-7 h-7 rounded-lg bg-slate-800 text-white flex items-center justify-center cursor-pointer">+</button>
+          </div>
+
+          <button onclick="addModalProductToCart()" class="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition cursor-pointer">
+            <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+            <span>Add to Quotation</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  `;
+
+  modal.classList.remove('hidden');
+  safeCreateIcons();
+};
+
+let modalSelectedVarIdx = 0;
+
+window.updateModalVariant = function(idx) {
+  modalSelectedVarIdx = idx;
+  const buttons = document.querySelectorAll('.modal-var-btn');
+  buttons.forEach(btn => {
+    const vIdx = parseInt(btn.dataset.vindex);
+    if (vIdx === idx) {
+      btn.className = 'p-2 rounded-xl border text-left transition bg-sky-500/20 border-sky-500 text-white modal-var-btn cursor-pointer';
+    } else {
+      btn.className = 'p-2 rounded-xl border text-left transition bg-slate-900 border-slate-800 text-slate-300 modal-var-btn cursor-pointer';
+    }
+  });
+};
+
+window.adjustModalQty = function(delta) {
+  const input = document.getElementById('modal-qty-input');
+  if (!input) return;
+  let val = parseInt(input.value) || 1;
+  val = Math.max(1, val + delta);
+  input.value = val;
+};
+
+window.addModalProductToCart = function() {
+  const product = AppState.selectedProductForModal;
+  if (!product) return;
+
+  const variant = product.variants[modalSelectedVarIdx] || product.variants[0];
+  const qtyInput = document.getElementById('modal-qty-input');
+  const qty = parseInt(qtyInput ? qtyInput.value : 1) || 1;
+  const unitPrice = AppState.pricingMode === 'dp' ? (variant.dpPrice || variant.wholesalePrice) : (variant.mrp || variant.price);
+
+  addToCart({
+    productId: product.id,
+    productName: product.name,
+    sku: product.sku,
+    layerType: product.layerType,
+    capacity: variant.capacity,
+    mrp: variant.mrp || variant.price,
+    dpPrice: variant.dpPrice || variant.wholesalePrice,
+    colorName: "Plain / Factory Finish",
+    colorHex: "#cbd5e1",
+    brandingId: 'none',
+    customText: '',
+    quantity: qty,
+    unitPrice: unitPrice,
+    imageUrl: product.imageUrl
+  });
+
+  closeModal('product-modal');
+  showToast(`Added ${qty}x ${product.name} to quotation!`);
+};
+
+// Laser Customizer Studio
+function initCustomizer() {
+  const modelSelect = document.getElementById('customizer-model-select');
+  if (modelSelect) {
+    modelSelect.innerHTML = AppState.products.map(p => `
+      <option value="${p.id}">${p.name} (${p.layerType === 'double_layer' ? 'Double Layer' : 'Single Layer'})</option>
+    `).join('');
+    modelSelect.value = AppState.customizer.productId;
+  }
+
+  renderCustomizerColorSwatches();
+  renderCustomizerBrandingOptions();
+  renderCustomizerPreview();
+}
+
+window.openProductCustomizer = function(productId) {
+  if (productId) {
+    AppState.customizer.productId = productId;
+    const modelSelect = document.getElementById('customizer-model-select');
+    if (modelSelect) modelSelect.value = productId;
+  }
+
+  const customizerSection = document.getElementById('customizer-section');
+  if (customizerSection) {
+    customizerSection.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  renderCustomizerColorSwatches();
+  renderCustomizerPreview();
+};
+
+function renderCustomizerColorSwatches() {
+  const prod = AppState.products.find(p => p.id === AppState.customizer.productId) || AppState.products[0];
+  const container = document.getElementById('customizer-color-swatches');
+  if (!container || !prod || !prod.colors) return;
+
+  container.innerHTML = prod.colors.map((c, i) => `
+    <button type="button" 
+            onclick="setCustomizerColor('${c.hex}', '${c.name}')" 
+            title="${c.name}"
+            style="background-color: ${c.hex};" 
+            class="w-7 h-7 rounded-full border-2 transition transform hover:scale-110 shadow-sm cursor-pointer ${
+              AppState.customizer.colorHex === c.hex ? 'border-sky-400 ring-2 ring-sky-400/40 scale-110' : 'border-slate-700'
+            }">
+    </button>
+  `).join('');
+}
+
+function renderCustomizerBrandingOptions() {
+  const container = document.getElementById('branding-options-container');
+  if (!container) return;
+
+  const brandingList = (typeof BRANDING_OPTIONS !== 'undefined') ? BRANDING_OPTIONS : [
+    { id: "none", name: "Plain / Factory Finish", pricePerUnit: 0, moq: 1, desc: "Standard unbranded" },
+    { id: "laser", name: "Laser Engraving", pricePerUnit: 25, moq: 10, desc: "Permanent crisp mark" }
+  ];
+
+  container.innerHTML = brandingList.map(opt => `
+    <label class="flex items-start gap-2.5 p-2.5 rounded-xl border transition cursor-pointer ${
+      AppState.customizer.brandingOptionId === opt.id ? 'bg-sky-950/40 border-sky-500 text-white' : 'bg-slate-950 border-slate-800 text-slate-300 hover:border-slate-700'
+    }">
+      <input type="radio" name="brandingOption" value="${opt.id}" ${AppState.customizer.brandingOptionId === opt.id ? 'checked' : ''} onchange="setBrandingOption('${opt.id}')" class="mt-0.5">
+      <div class="flex-1 text-xs">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-white">${opt.name}</span>
+          <span class="font-mono ${opt.pricePerUnit === 0 ? 'text-emerald-400' : 'text-sky-400'}">
+            ${opt.pricePerUnit === 0 ? 'FREE' : `+${formatPrice(opt.pricePerUnit)}/unit`}
+          </span>
+        </div>
+        <p class="text-[10px] text-slate-400 mt-0.5">${opt.desc} (Min Qty: ${opt.moq} pcs)</p>
+      </div>
+    </label>
+  `).join('');
+}
+
+window.setCustomizerColor = function(hex, name) {
+  AppState.customizer.colorHex = hex;
+  AppState.customizer.colorName = name;
+  renderCustomizerColorSwatches();
+  renderCustomizerPreview();
+};
+
+window.setBrandingOption = function(optId) {
+  AppState.customizer.brandingOptionId = optId;
+  renderCustomizerBrandingOptions();
+  renderCustomizerPreview();
+};
+
+function renderCustomizerPreview() {
+  const canvas = document.getElementById('customizer-canvas');
+  if (!canvas) return;
+
+  const prod = AppState.products.find(p => p.id === AppState.customizer.productId) || AppState.products[0];
+  const text = AppState.customizer.engravingText;
+
+  canvas.innerHTML = `
+    <div class="relative w-full h-full flex flex-col items-center justify-center p-4">
+      <img src="${prod.imageUrl}" class="max-h-64 max-w-full object-contain drop-shadow-xl" onerror="this.src='images/products/nb-dl-therma.png'">
+      <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+        <div class="bg-slate-900/90 px-3 py-1 rounded-lg border border-sky-400/50 backdrop-blur-md shadow-xl text-center">
+          <div class="font-bold text-xs tracking-widest text-sky-300 font-mono uppercase">${escapeHtml(text)}</div>
+          <div class="text-[8px] text-slate-400 font-mono tracking-wider">PERMANENT LASER MARK</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+window.handleCustomizerTextChange = function(val) {
+  AppState.customizer.engravingText = val;
+  renderCustomizerPreview();
+};
+
+window.addCustomizerToCart = function() {
+  const prod = AppState.products.find(p => p.id === AppState.customizer.productId) || AppState.products[0];
+  const brandingList = (typeof BRANDING_OPTIONS !== 'undefined') ? BRANDING_OPTIONS : [];
+  const branding = brandingList.find(b => b.id === AppState.customizer.brandingOptionId) || { id: 'laser', name: 'Laser Engraving', pricePerUnit: 25, moq: 10 };
+  const variant = prod.variants[0];
+  const defaultQty = Math.max(branding.moq || 1, AppState.pricingMode === 'dp' ? (prod.moqBulk || 25) : 1);
+
+  const basePrice = AppState.pricingMode === 'dp' ? (variant.dpPrice || variant.wholesalePrice) : (variant.mrp || variant.price);
+  const finalUnitPrice = basePrice + (branding.pricePerUnit || 0);
+
+  addToCart({
+    productId: prod.id,
+    productName: prod.name,
+    sku: prod.sku,
+    layerType: prod.layerType,
+    capacity: variant.capacity,
+    mrp: variant.mrp || variant.price,
+    dpPrice: variant.dpPrice || variant.wholesalePrice,
+    colorName: AppState.customizer.colorName,
+    colorHex: AppState.customizer.colorHex,
+    brandingId: branding.id,
+    brandingName: branding.name,
+    customText: AppState.customizer.engravingText,
+    quantity: defaultQty,
+    unitPrice: finalUnitPrice,
+    imageUrl: prod.imageUrl
+  });
+
+  showToast(`Added custom engraved ${prod.name} to Quotation!`);
+};
+
+// Quotation Drawer & WhatsApp Generator
+window.openCartDrawer = function() {
+  renderCartDrawer();
+  const drawer = document.getElementById('cart-drawer');
+  if (drawer) drawer.classList.remove('translate-x-full');
+};
+
+window.closeCartDrawer = function() {
+  const drawer = document.getElementById('cart-drawer');
+  if (drawer) drawer.classList.add('translate-x-full');
+};
+
+function renderCartDrawer() {
+  const itemsContainer = document.getElementById('cart-items-container');
+  const subtotalEl = document.getElementById('cart-subtotal');
+  const discountEl = document.getElementById('cart-discount');
+  const totalEl = document.getElementById('cart-total');
+  const tierInfoEl = document.getElementById('cart-tier-info');
+  if (!itemsContainer) return;
+
+  if (AppState.cart.length === 0) {
+    itemsContainer.innerHTML = `
+      <div class="py-16 text-center text-slate-500">
+        <i data-lucide="shopping-bag" class="w-12 h-12 mx-auto mb-2 text-slate-600"></i>
+        <h4 class="text-sm font-bold text-slate-300">Your quotation list is empty</h4>
+        <p class="text-[11px] text-slate-400 mt-0.5">Select bottles from catalog to build an estimate.</p>
+      </div>
+    `;
+    if (subtotalEl) subtotalEl.innerText = formatPrice(0);
+    if (discountEl) discountEl.innerText = formatPrice(0);
+    if (totalEl) totalEl.innerText = formatPrice(0);
+    if (tierInfoEl) tierInfoEl.innerHTML = '';
+    safeCreateIcons();
+    return;
+  }
+
+  const totalUnits = AppState.cart.reduce((sum, item) => sum + item.quantity, 0);
+  let subtotal = AppState.cart.reduce((sum, item) => sum + (item.unitPrice * item.quantity), 0);
+
+  const tierList = (typeof WHOLESALE_TIERS !== 'undefined') ? WHOLESALE_TIERS : [
+    { minQty: 1, maxQty: 9, label: "Retail Tier (MRP)", discountPercent: 0, tag: "MRP Rate" },
+    { minQty: 10, maxQty: 49, label: "Dealer Base Tier (DP Rate)", discountPercent: 0, tag: "Dealer Price (DP)" },
+    { minQty: 50, maxQty: 199, label: "Corporate Bulk Tier", discountPercent: 10, tag: "10% Extra on DP" },
+    { minQty: 200, maxQty: 499, label: "Super Stockist Tier", discountPercent: 15, tag: "15% Extra on DP" },
+    { minQty: 500, maxQty: 999999, label: "Factory Direct OEM/ODM", discountPercent: 22, tag: "Best Factory Rate" }
+  ];
+
+  let currentTier = tierList[0];
+  for (let tier of tierList) {
+    if (totalUnits >= tier.minQty) currentTier = tier;
+  }
+
+  const discountAmount = Math.round(subtotal * (currentTier.discountPercent / 100));
+  const finalTotal = subtotal - discountAmount;
+
+  if (tierInfoEl) {
+    tierInfoEl.innerHTML = `
+      <div class="p-2.5 bg-sky-950/60 border border-sky-800/60 rounded-xl mb-3 text-xs flex items-center justify-between">
+        <div class="flex items-center gap-1.5">
+          <i data-lucide="award" class="w-4 h-4 text-sky-400"></i>
+          <span class="text-sky-200 font-semibold">${currentTier.label} (${totalUnits} Pcs)</span>
+        </div>
+        <span class="px-2 py-0.2 bg-emerald-500/20 text-emerald-300 font-bold rounded text-[10px]">${currentTier.tag}</span>
+      </div>
+    `;
+  }
+
+  itemsContainer.innerHTML = AppState.cart.map((item, index) => `
+    <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex gap-3 items-start">
+      <div class="w-12 h-16 shrink-0 bg-slate-950 rounded-lg p-1 flex items-center justify-center">
+        <img src="${item.imageUrl}" alt="${item.productName}" class="max-h-14 max-w-full object-contain" onerror="this.src='images/products/nb-dl-therma.png'">
+      </div>
+
+      <div class="flex-1 min-w-0">
+        <div class="flex justify-between items-start">
+          <h4 class="text-xs font-bold text-white truncate">${item.productName}</h4>
+          <button onclick="removeCartItem(${index})" class="text-slate-500 hover:text-red-400 p-1 cursor-pointer" title="Remove">
+            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2 text-[10px] text-slate-400 mt-0.5">
+          <span class="font-bold text-slate-300">${item.capacity}</span> • 
+          <span class="${item.layerType === 'double_layer' ? 'text-amber-400' : 'text-sky-400'}">
+            ${item.layerType === 'double_layer' ? 'Double Layer' : 'Single Layer'}
+          </span>
+        </div>
+
+        ${item.customText ? `
+          <div class="text-[10px] text-sky-400 font-mono mt-0.5">Laser: "${escapeHtml(item.customText)}"</div>
+        ` : ''}
+
+        <div class="flex items-center justify-between mt-2 pt-1.5 border-t border-slate-800">
+          <div class="flex items-center bg-slate-950 border border-slate-800 rounded-lg">
+            <button onclick="updateCartQuantity(${index}, ${item.quantity - 1})" class="w-5 h-5 flex items-center justify-center text-slate-400 cursor-pointer">-</button>
+            <input type="number" value="${item.quantity}" onchange="updateCartQuantity(${index}, parseInt(this.value)||1)" min="1" class="w-10 bg-transparent text-center text-xs text-white font-semibold focus:outline-none">
+            <button onclick="updateCartQuantity(${index}, ${item.quantity + 1})" class="w-5 h-5 flex items-center justify-center text-slate-400 cursor-pointer">+</button>
+          </div>
+          <div class="text-right">
+            <div class="text-xs font-bold text-white">${formatPrice(item.unitPrice * item.quantity)}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  if (subtotalEl) subtotalEl.innerText = formatPrice(subtotal);
+  if (discountEl) discountEl.innerText = `-${formatPrice(discountAmount)}`;
+  if (totalEl) totalEl.innerText = formatPrice(finalTotal);
+
+  safeCreateIcons();
+}
+
+// WhatsApp Order
+window.generateWhatsAppOrder = function() {
+  if (AppState.cart.length === 0) {
+    showToast('Your quotation list is empty!');
+    return;
+  }
+
+  const clientName = document.getElementById('client-name')?.value.trim() || 'Client';
+  const clientCompany = document.getElementById('client-company')?.value.trim() || '';
+
+  const totalUnits = AppState.cart.reduce((sum, item) => sum + item.quantity, 0);
+  let subtotal = AppState.cart.reduce((sum, item) => sum + (item.unitPrice * item.quantity), 0);
+
+  const tierList = (typeof WHOLESALE_TIERS !== 'undefined') ? WHOLESALE_TIERS : [];
+  let currentTier = tierList[0] || { tag: "DP Rate", discountPercent: 0 };
+  for (let tier of tierList) {
+    if (totalUnits >= tier.minQty) currentTier = tier;
+  }
+
+  const discountAmount = Math.round(subtotal * (currentTier.discountPercent / 100));
+  const finalTotal = subtotal - discountAmount;
+
+  let msg = `*✨ NANOBOT STAINLESS STEEL BOTTLE QUOTATION ✨*\n`;
+  msg += `-------------------------------------------\n`;
+  msg += `👤 *Client:* ${clientName} ${clientCompany ? `(${clientCompany})` : ''}\n`;
+  msg += `📅 *Date:* ${new Date().toLocaleDateString()}\n`;
+  msg += `-------------------------------------------\n`;
+  msg += `*SELECTED MODELS:*\n\n`;
+
+  AppState.cart.forEach((item, i) => {
+    const layer = item.layerType === 'double_layer' ? 'Double Layer Vacuum' : 'Single Layer Fridge';
+    msg += `${i + 1}. *${item.productName}* [${item.sku}]\n`;
+    msg += `   • Size: ${item.capacity} (${layer})\n`;
+    if (item.mrp) msg += `   • MRP: ${formatPrice(item.mrp)} | Rate: ${formatPrice(item.unitPrice)}\n`;
+    if (item.customText) msg += `   • Laser Engraving: "${item.customText}"\n`;
+    msg += `   • Qty: ${item.quantity} pcs = ${formatPrice(item.unitPrice * item.quantity)}\n\n`;
+  });
+
+  msg += `-------------------------------------------\n`;
+  msg += `📦 *Total Quantity:* ${totalUnits} Units\n`;
+  msg += `💰 *Subtotal:* ${formatPrice(subtotal)}\n`;
+  if (discountAmount > 0) {
+    msg += `🎉 *Volume Discount (${currentTier.tag}):* -${formatPrice(discountAmount)}\n`;
+  }
+  msg += `🏷️ *Estimated Total:* ${formatPrice(finalTotal)}\n`;
+
+  const waUrl = `https://wa.me/${AppState.whatsappNumber}?text=${encodeURIComponent(msg)}`;
+  window.open(waUrl, '_blank');
+};
+
+// PDF Quotation
+window.downloadPdfQuotation = function() {
+  if (AppState.cart.length === 0) {
+    showToast('Add bottles to quotation first!');
+    return;
+  }
+
+  try {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    const clientName = document.getElementById('client-name')?.value.trim() || 'Valued Customer';
+    const clientCompany = document.getElementById('client-company')?.value.trim() || 'N/A';
+
+    doc.setFillColor(15, 23, 42);
+    doc.rect(0, 0, 210, 36, 'F');
+
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(20);
+    doc.text('NANOBOT', 14, 18);
+
+    doc.setFontSize(9);
+    doc.setTextColor(56, 189, 248);
+    doc.text('STAINLESS STEEL BOTTLE MANUFACTURER', 14, 25);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(203, 213, 225);
+    doc.setFontSize(8);
+    doc.text('Proforma Estimate', 150, 18);
+    doc.text(`Date: ${new Date().toLocaleDateString()}`, 150, 24);
+
+    doc.setTextColor(30, 41, 59);
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Quotation For:', 14, 46);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Client: ${clientName} (${clientCompany})`, 14, 52);
+
+    let y = 65;
+    doc.setFillColor(241, 245, 249);
+    doc.rect(14, y - 5, 182, 8, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.text('SN', 16, y);
+    doc.text('Model Description', 28, y);
+    doc.text('Capacity', 100, y);
+    doc.text('Rate', 135, y);
+    doc.text('Qty', 160, y);
+    doc.text('Total', 180, y);
+
+    doc.setFont('helvetica', 'normal');
+    y += 7;
+
+    let subtotal = 0;
+    let totalQty = 0;
+
+    AppState.cart.forEach((item, idx) => {
+      const itemTotal = item.unitPrice * item.quantity;
+      subtotal += itemTotal;
+      totalQty += item.quantity;
+
+      doc.text(`${idx + 1}`, 16, y);
+      doc.text(`${item.productName}`, 28, y);
+      doc.text(`${item.capacity}`, 100, y);
+      doc.text(`${item.unitPrice}`, 135, y);
+      doc.text(`${item.quantity}`, 160, y);
+      doc.text(`${itemTotal}`, 180, y);
+
+      y += 7;
+    });
+
+    y += 5;
+    doc.line(14, y, 196, y);
+    y += 7;
+
+    doc.setFont('helvetica', 'bold');
+    doc.text(`Total Units: ${totalQty}`, 14, y);
+    doc.text(`Grand Total: ${formatPrice(subtotal)}`, 140, y);
+
+    doc.save(`Nanobot_Estimate_${Date.now().toString().slice(-4)}.pdf`);
+    showToast('PDF estimate downloaded!');
+  } catch (err) {
+    console.error('PDF error:', err);
+    window.print();
+  }
+};
+
+// Admin / Price Manager Modal
+window.openAdminModal = function() {
+  const modal = document.getElementById('admin-modal');
+  if (!modal) return;
+  renderAdminProductsList();
+  modal.classList.remove('hidden');
+};
+
+function renderAdminProductsList() {
+  const container = document.getElementById('admin-products-list');
+  if (!container) return;
+
+  container.innerHTML = AppState.products.map((p, idx) => `
+    <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="${p.imageUrl}" class="w-10 h-10 object-contain">
+        <div>
+          <h4 class="font-bold text-white text-xs">${p.name}</h4>
+          <span class="text-[10px] text-sky-400 font-mono">${p.sku}</span> • 
+          <span class="text-[10px] font-semibold ${p.layerType === 'double_layer' ? 'text-amber-400' : 'text-sky-400'}">
+            ${p.layerType === 'double_layer' ? 'Double Layer' : 'Single Layer'}
+          </span>
+        </div>
+      </div>
+      <div class="text-right text-xs">
+        <div class="text-slate-400">MRP: <span class="text-white font-bold">${formatPrice(p.variants[0].mrp || p.variants[0].price)}</span></div>
+        <div class="text-emerald-400">DP: <span class="font-bold">${formatPrice(p.variants[0].dpPrice || p.variants[0].wholesalePrice)}</span></div>
+      </div>
+    </div>
+  `).join('');
+
+  safeCreateIcons();
+}
+
+window.exportCatalogJSON = function() {
+  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(AppState.products, null, 2));
+  const downloadAnchor = document.createElement('a');
+  downloadAnchor.setAttribute("href", dataStr);
+  downloadAnchor.setAttribute("download", `Nanobot_Catalog_${Date.now()}.json`);
+  document.body.appendChild(downloadAnchor);
+  downloadAnchor.click();
+  downloadAnchor.remove();
+};
+
+window.resetToDefaultCatalog = function() {
+  AppState.products = (typeof DEFAULT_PRODUCTS !== 'undefined') ? [...DEFAULT_PRODUCTS] : [];
+  renderAdminProductsList();
+  renderProductGrid();
+  showToast('Reset to default catalog lineup.');
+};
+
+window.closeModal = function(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) modal.classList.add('hidden');
+};
+
+function showToast(message) {
+  const toast = document.getElementById('toast-notification');
+  const toastMsg = document.getElementById('toast-message');
+  if (!toast || !toastMsg) return;
+
+  toastMsg.innerText = message;
+  toast.classList.remove('hidden');
+
+  setTimeout(() => {
+    toast.classList.add('hidden');
+  }, 3000);
+}
+
+function escapeHtml(text) {
+  return text.replace(/[&<>"']/g, function(m) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+  });
+}
+
+// Global Event Delegation (Guarantees every click on tabs/chips works reliably)
+document.addEventListener('click', (e) => {
+  // 1. Layer Tabs
+  const layerBtn = e.target.closest('.filter-layer-btn');
+  if (layerBtn) {
+    const layer = layerBtn.dataset.layer;
+    if (layer) setFilterLayer(layer);
+    return;
+  }
+
+  // 2. Capacity Chips
+  const capBtn = e.target.closest('.filter-cap-btn');
+  if (capBtn) {
+    const cap = capBtn.dataset.cap;
+    if (cap) setFilterCapacity(cap);
+    return;
+  }
+
+  // 3. Price Chips
+  const priceBtn = e.target.closest('.filter-price-btn');
+  if (priceBtn) {
+    const price = priceBtn.dataset.price;
+    if (price) setFilterPrice(price);
+    return;
+  }
+});
+
+function initEventListeners() {
+  const searchInput = document.getElementById('search-input');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      AppState.searchQuery = e.target.value.trim();
+      renderProductGrid();
+    });
+  }
+
+  const mrpBtn = document.getElementById('btn-mode-mrp');
+  const dpBtn = document.getElementById('btn-mode-dp');
+
+  if (mrpBtn && dpBtn) {
+    mrpBtn.addEventListener('click', () => {
+      AppState.pricingMode = 'mrp';
+      mrpBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold transition bg-sky-500 text-white shadow-sm cursor-pointer';
+      dpBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition cursor-pointer';
+      renderProductGrid();
+    });
+
+    dpBtn.addEventListener('click', () => {
+      AppState.pricingMode = 'dp';
+      dpBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-600 text-white shadow-sm cursor-pointer';
+      mrpBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition cursor-pointer';
+      renderProductGrid();
+    });
+  }
+
+  const customizerSelect = document.getElementById('customizer-model-select');
+  if (customizerSelect) {
+    customizerSelect.addEventListener('change', (e) => {
+      openProductCustomizer(e.target.value);
+    });
+  }
+}
+
+// Initial Boot on Load
+function startApp() {
+  if (typeof DEFAULT_PRODUCTS !== 'undefined' && DEFAULT_PRODUCTS.length > 0) {
+    AppState.products = [...DEFAULT_PRODUCTS];
+  }
+
+  try {
+    const savedCart = localStorage.getItem('nanobot_cart');
+    if (savedCart) AppState.cart = JSON.parse(savedCart);
+  } catch(e) {}
+
+  renderProductGrid();
+  updateFilterButtonsUI();
+  updateCartBadge();
+  initEventListeners();
+  initCustomizer();
+  safeCreateIcons();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', startApp);
+} else {
+  startApp();
+}
+
+  </script>
 </body>
 </html>
